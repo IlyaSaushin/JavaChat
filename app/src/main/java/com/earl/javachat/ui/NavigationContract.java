@@ -1,0 +1,18 @@
+package com.earl.javachat.ui;
+
+public interface NavigationContract {
+
+    void login();
+
+    void register();
+
+    void showAddDetailsFragment();
+
+    void chat();
+
+    void back();
+
+    void showProgressBar();
+
+    void hideProgressBar();
+}

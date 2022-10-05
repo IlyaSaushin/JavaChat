@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "545964067414",
+    "project_id": "javachat-bdd4f",
+    "storage_bucket": "javachat-bdd4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545964067414:android:446a0c77b6b03b992209f7",
+        "android_client_info": {
+          "package_name": "com.earl.javachat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545964067414-jpcda3o9a47bq345adaqt71s1cf3cuia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdvC6wL3_c_CY_QIIKCkYopSOn88njRcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545964067414-jpcda3o9a47bq345adaqt71s1cf3cuia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

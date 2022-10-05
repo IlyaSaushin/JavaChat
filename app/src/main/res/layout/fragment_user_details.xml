@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.register.RegisterFragment">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/avatar_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/create_acc_form"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/acc_avatar"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/add_avatar_background"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            />
+
+        <TextView
+            android:id="@+id/add_avatar_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_image"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="@id/acc_avatar"
+            app:layout_constraintBottom_toBottomOf="@id/acc_avatar"
+            app:layout_constraintStart_toStartOf="@id/acc_avatar"
+            app:layout_constraintEnd_toEndOf="@id/acc_avatar"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/create_acc_form"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/avatar_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttons"
+        android:focusedByDefault="true">
+
+        <EditText
+            android:id="@+id/name_ed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_name_text"
+            android:background="@drawable/input_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/nick_ed"
+            android:paddingStart="16sp"
+            android:padding="8dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="30dp"
+            />
+
+        <EditText
+            android:id="@+id/nick_ed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_ur_nickname_tv"
+            android:background="@drawable/input_background"
+            app:layout_constraintTop_toBottomOf="@id/name_ed"
+            app:layout_constraintStart_toStartOf="@id/name_ed"
+            app:layout_constraintEnd_toEndOf="@id/name_ed"
+            app:layout_constraintBottom_toTopOf="@id/user_bio"
+            android:paddingStart="16sp"
+            android:padding="8dp"
+            android:layout_marginVertical="8dp"
+            />
+
+        <EditText
+            android:id="@+id/user_bio"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:hint="@string/enter_bio_tv"
+            android:background="@drawable/input_background"
+            app:layout_constraintTop_toBottomOf="@id/nick_ed"
+            app:layout_constraintStart_toStartOf="@id/name_ed"
+            app:layout_constraintEnd_toEndOf="@id/name_ed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingStart="16sp"
+            android:padding="8dp"
+            android:layout_marginVertical="8dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/create_acc_form"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="250dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_details_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="60dp"
+            android:text="@string/finish"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/button_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

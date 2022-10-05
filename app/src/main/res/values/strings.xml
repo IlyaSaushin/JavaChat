@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">JavaChat</string>
+    <string name="empty_string_err">This field can not be empty!</string>
+    <string name="incorrect_email_err">Incorrect email address</string>
+    <string name="shor_pass_err">Password is too short</string>
+    <string name="unequal_pass_err">Passwords are not equal</string>
+    <string name="add_image">Add image</string>
+    <string name="email_address">Email address</string>
+    <string name="enter_your_nickname">Name</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_acc_button">Sign up</string>
+    <string name="enter_data_to_register_text">Enter your email address and password to sign up</string>
+    <string name="enter_name_text">Name</string>
+    <string name="enter_ur_nickname_tv">Nick name</string>
+    <string name="enter_bio_tv">Enter your bio</string>
+    <string name="finish">Finish</string>
+</resources>
