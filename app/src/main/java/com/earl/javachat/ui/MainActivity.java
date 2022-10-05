@@ -16,8 +16,11 @@ import android.view.Window;
 import android.widget.ProgressBar;
 
 import com.earl.javachat.R;
+import com.earl.javachat.core.Keys;
+import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.databinding.ActivityMainBinding;
 import com.earl.javachat.ui.chat.ChatFragment;
+import com.earl.javachat.ui.logIn.LogInFragment;
 import com.earl.javachat.ui.register.RegisterFragment;
 import com.earl.javachat.ui.register.UserDetailsFragment;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
 
     ActivityMainBinding binding;
     Dialog progressBar;
+    SharedPreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +39,18 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        showFragment(new RegisterFragment());
+        preferenceManager = new SharedPreferenceManager(this);
+        boolean isSignedUp = preferenceManager.getBoolean(Keys.KEY_IS_SIGNED_UP);
+        if (isSignedUp) {
+            showFragment(new ChatFragment());
+        } else {
+            showFragment(new LogInFragment());
+        }
     }
 
     @Override
     public void login() {
-
+        showFragment(new LogInFragment());
     }
 
     @Override

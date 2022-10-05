@@ -1,5 +1,6 @@
 package com.earl.javachat.di;
 
+import com.earl.javachat.ui.chat.ChatFragment;
 import com.earl.javachat.ui.register.RegisterFragment;
 import com.earl.javachat.ui.register.UserDetailsFragment;
 
@@ -9,7 +10,7 @@ import dagger.Component;
 
 @Singleton
 @Component( modules = {
-    RegisterModule.class,
+    AuthorizationModule.class,
         DataModule.class
 })
 public interface AppComponent {
@@ -17,4 +18,6 @@ public interface AppComponent {
     void injectRegisterFragment(RegisterFragment fragment);
 
     void injectUserDetailsFragment(UserDetailsFragment fragment);
+
+    void injectChatFragment(ChatFragment fragment);
 }

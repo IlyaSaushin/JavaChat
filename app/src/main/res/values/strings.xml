@@ -15,4 +15,10 @@
     <string name="enter_ur_nickname_tv">Nick name</string>
     <string name="enter_bio_tv">Enter your bio</string>
     <string name="finish">Finish</string>
+    <string name="sign_out">Sign out</string>
+    <string name="welcome">Welcome!</string>
+    <string name="login_to_continue">Log in to continue</string>
+    <string name="email">Email</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Create new account</string>
 </resources>

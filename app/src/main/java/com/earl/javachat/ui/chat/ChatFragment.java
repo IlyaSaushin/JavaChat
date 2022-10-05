@@ -9,17 +9,48 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.earl.javachat.JavaChatApp;
+import com.earl.javachat.core.Keys;
+import com.earl.javachat.core.SharedPreferenceManager;
+import com.earl.javachat.core.SuccessOperationResultListener;
 import com.earl.javachat.databinding.FragmentChatBinding;
+import com.earl.javachat.ui.NavigationContract;
+
+import javax.inject.Inject;
 
 public class ChatFragment extends Fragment {
 
     FragmentChatBinding binding;
+    NavigationContract navigator;
+    SharedPreferenceManager preferenceManager;
+    @Inject
+    ChatPresenter presenter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectChatFragment(this);
+        super.onCreate(savedInstanceState);
+        navigator = (NavigationContract) requireContext();
+        preferenceManager = new SharedPreferenceManager(requireContext());
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentChatBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.signOutBtn.setOnClickListener(v -> signOut());
+    }
+
+    private void signOut() {
+        presenter.signOut();
+        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, false);
+        navigator.login();
     }
 
     @Override

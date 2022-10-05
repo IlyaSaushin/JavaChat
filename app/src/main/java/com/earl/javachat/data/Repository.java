@@ -1,7 +1,5 @@
 package com.earl.javachat.data;
 
-import android.util.Log;
-
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.SuccessOperationResultListener;
 import com.earl.javachat.data.models.CurrentUser;
@@ -17,6 +15,10 @@ public interface Repository {
 
     void saveDetails(HashMap<String, Object> userDetails, SuccessOperationResultListener callback);
 
+    void logIn(CurrentUser.BaseCurrentUser user, SuccessOperationResultListener callback);
+
+    void signOut();
+
     class BaseRepository implements Repository {
 
         FirebaseUser localUser;
@@ -29,10 +31,7 @@ public interface Repository {
                         localUser = auth.getCurrentUser();
                         callback.success();
                     })
-                    .addOnFailureListener(e -> {
-                        callback.fail(e);
-                        Log.d("tag", "register: " + e);
-                    });
+                    .addOnFailureListener(callback::fail);
         }
 
         @Override
@@ -43,10 +42,23 @@ public interface Repository {
                     .addOnSuccessListener(unused -> {
                         callback.success();
                     })
-                    .addOnFailureListener(e -> {
-                        callback.fail(e);
-                        Log.d("tag", "saveDetails: " + e);
-                    });
+                    .addOnFailureListener(callback::fail);
+        }
+
+        @Override
+        public void logIn(CurrentUser.BaseCurrentUser user, SuccessOperationResultListener callback) {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signInWithEmailAndPassword(user.email, user.password)
+                    .addOnSuccessListener(authResult -> {
+                        callback.success();
+                    })
+                    .addOnFailureListener(callback::fail);
+        }
+
+        @Override
+        public void signOut() {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
         }
     }
 }
