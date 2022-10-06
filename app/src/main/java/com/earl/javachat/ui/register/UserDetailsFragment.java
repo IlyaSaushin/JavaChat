@@ -42,6 +42,8 @@ public class UserDetailsFragment extends Fragment implements SuccessOperationRes
     SharedPreferenceManager preferenceManager;
     @Inject
     RegisterPresenter presenter;
+    @Inject
+    UserDetailsFormValidation validation;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,25 +71,34 @@ public class UserDetailsFragment extends Fragment implements SuccessOperationRes
         binding.addDetailsButton.setOnClickListener(v -> saveAccountDetails());
     }
 
+    private boolean isValidate() {
+        return validation.validate(
+                encodedImage,
+                binding.nameEd,
+                binding.nickEd,
+                binding.userBio
+        );
+    }
+
     private void saveAccountDetails() {
+        if (isValidate()) {
 
-        // todo check null
+            navigator.showProgressBar();
 
-        navigator.showProgressBar();
+            preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
+            preferenceManager.putString(Keys.KEY_IMAGE, encodedImage);
+            preferenceManager.putString(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
+            preferenceManager.putString(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
+            preferenceManager.putString(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());
 
-        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
-        preferenceManager.putString(Keys.KEY_IMAGE, encodedImage);
-        preferenceManager.putString(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
-        preferenceManager.putString(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
-        preferenceManager.putString(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());
+            HashMap<String, Object> userDetails = new HashMap<>();
+            userDetails.put(Keys.KEY_IMAGE, encodedImage);
+            userDetails.put(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
+            userDetails.put(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
+            userDetails.put(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());
 
-        HashMap<String, Object> userDetails = new HashMap<>();
-        userDetails.put(Keys.KEY_IMAGE, encodedImage);
-        userDetails.put(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
-        userDetails.put(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
-        userDetails.put(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());
-
-        presenter.saveAccountDetails(userDetails, this);
+            presenter.saveAccountDetails(userDetails, this);
+        }
     }
 
     @Override

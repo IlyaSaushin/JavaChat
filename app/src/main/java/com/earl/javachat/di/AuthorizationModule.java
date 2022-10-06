@@ -6,6 +6,7 @@ import com.earl.javachat.ui.logIn.LogInFormValidation;
 import com.earl.javachat.ui.logIn.LogInPresenter;
 import com.earl.javachat.ui.register.RegisterFormValidation;
 import com.earl.javachat.ui.register.RegisterPresenter;
+import com.earl.javachat.ui.register.UserDetailsFormValidation;
 
 import javax.inject.Singleton;
 
@@ -43,5 +44,11 @@ public class AuthorizationModule {
     @Singleton
     ChatPresenter providesChatPresenter(Repository.BaseRepository repository) {
         return new ChatPresenter(repository);
+    }
+
+    @Provides
+    @Singleton
+    UserDetailsFormValidation providerUserDetailsValidation() {
+        return new UserDetailsFormValidation.BaseUserDetailsValidation();
     }
 }

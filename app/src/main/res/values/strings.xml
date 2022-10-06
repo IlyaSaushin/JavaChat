@@ -21,4 +21,9 @@
     <string name="email">Email</string>
     <string name="log_in">Log in</string>
     <string name="sign_up">Create new account</string>
+    <string name="example_user_name">Ivan Petrov</string>
+    <string name="example_message">Hey, how are u?</string>
+    <string name="invalid_pass_err">Invalid password</string>
+    <string name="no_such_user">User with such email and password is not registered</string>
+    <string name="unknown_error">Unknown Error</string>
 </resources>

@@ -11,12 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.earl.javachat.JavaChatApp;
+import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
+import com.earl.javachat.core.PossibleServerErrors;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.core.SuccessOperationResultListener;
 import com.earl.javachat.data.models.CurrentUser;
 import com.earl.javachat.databinding.FragmentLoginBinding;
 import com.earl.javachat.ui.NavigationContract;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -32,9 +38,10 @@ public class LogInFragment extends Fragment implements SuccessOperationResultLis
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectLogInFragment(this);
         navigator = ((NavigationContract) requireActivity());
         preferenceManager = new SharedPreferenceManager(requireContext());
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -59,7 +66,6 @@ public class LogInFragment extends Fragment implements SuccessOperationResultLis
     }
 
     private void logIn() {
-        navigator.showProgressBar();
         if (isValidate()) {
             navigator.showProgressBar();
             CurrentUser.BaseCurrentUser user = new CurrentUser.BaseCurrentUser(
@@ -72,16 +78,22 @@ public class LogInFragment extends Fragment implements SuccessOperationResultLis
 
     @Override
     public void success() {
-        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
         navigator.hideProgressBar();
+        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
         navigator.chat();
     }
 
     @Override
     public void fail(Exception exception) {
-        // todo
-        Toast.makeText(requireContext(), "Error" + exception, Toast.LENGTH_SHORT).show();
-        Log.d("tag", "fail: " + exception);
+        navigator.hideProgressBar();
+        if (exception.toString().equals(PossibleServerErrors.INVALID_EMAIL_OR_PASSWORD)) {
+            Toast.makeText(requireContext(), R.string.invalid_pass_err, Toast.LENGTH_SHORT).show();
+        } else if(exception.toString().equals(PossibleServerErrors.NO_SUCH_USER)) {
+            Toast.makeText(requireContext(), R.string.no_such_user, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show();
+            Log.d("tag", "fail: " + exception);
+        }
     }
 
     @Override

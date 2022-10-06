@@ -1,6 +1,9 @@
 package com.earl.javachat.ui.chat;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.core.SuccessOperationResultListener;
 import com.earl.javachat.databinding.FragmentChatBinding;
 import com.earl.javachat.ui.NavigationContract;
 
@@ -44,7 +46,14 @@ public class ChatFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.signOutBtn.setOnClickListener(v -> signOut());
+        setUsersAvatar();
+        binding.logOutBtn.setOnClickListener(v -> signOut());
+    }
+
+    private void setUsersAvatar() {
+        byte[] userImageBytes = Base64.decode(preferenceManager.getString(Keys.KEY_IMAGE), Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(userImageBytes, 0 , userImageBytes.length);
+        binding.userAvatar.setImageBitmap(bitmap);
     }
 
     private void signOut() {

@@ -70,13 +70,12 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
 
     @Override
     public void showProgressBar() {
-        Dialog pb = new Dialog(this, android.R.style.Theme_Black);
-        progressBar = pb;
+        progressBar = new Dialog(this, android.R.style.Theme_Black);
         View view = LayoutInflater.from(this).inflate(R.layout.progress_bar, null);
-        pb.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        pb.getWindow().setBackgroundDrawableResource(R.color.custom_transparent);
-        pb.setContentView(view);
-        pb.show();
+        progressBar.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        progressBar.getWindow().setBackgroundDrawableResource(R.color.custom_transparent);
+        progressBar.setContentView(view);
+        progressBar.show();
     }
 
     @Override
