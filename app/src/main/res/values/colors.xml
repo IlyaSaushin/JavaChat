@@ -7,8 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="input_background">#DCDCDC</color>
+    <color name="input_background">#F5F5F5</color>
     <color name="custom_transparent">#80FFFFFF</color>
+    <color name="OnPrimary">#999CA0</color>
+    <color name="primary">#D9D9D9</color>
+    <color name="tabs">#999CA0</color>
+    <color name="secondPrimaryBlue">#0171F4</color>
+    <color name="layout_background">#F5F5F5</color>
+    <color name="text_color">#696969</color>
 </resources>
 
 

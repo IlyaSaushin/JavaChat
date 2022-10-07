@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.core.SuccessOperationResultListener;
+import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.databinding.FragmentUserDetailsBinding;
 import com.earl.javachat.ui.NavigationContract;
 
@@ -34,7 +34,7 @@ import java.util.HashMap;
 
 import javax.inject.Inject;
 
-public class UserDetailsFragment extends Fragment implements SuccessOperationResultListener {
+public class UserDetailsFragment extends Fragment implements OperationResultListener {
 
     FragmentUserDetailsBinding binding;
     String encodedImage;

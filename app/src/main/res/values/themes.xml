@@ -2,8 +2,8 @@
 
     <style name="Theme.JavaChat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#254E58</item>
-        <item name="colorPrimaryVariant">#254E58</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/secondPrimaryBlue</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#88BDBC</item>
@@ -31,3 +31,5 @@
 </resources>
 
 <!--    #08141C-->
+
+<!--    254E58-->

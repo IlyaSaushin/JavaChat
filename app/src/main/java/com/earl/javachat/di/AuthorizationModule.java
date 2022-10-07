@@ -1,7 +1,7 @@
 package com.earl.javachat.di;
 
 import com.earl.javachat.data.Repository;
-import com.earl.javachat.ui.chat.ChatPresenter;
+import com.earl.javachat.ui.chat.messages.ChatPresenter;
 import com.earl.javachat.ui.logIn.LogInFormValidation;
 import com.earl.javachat.ui.logIn.LogInPresenter;
 import com.earl.javachat.ui.register.RegisterFormValidation;

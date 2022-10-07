@@ -1,31 +1,22 @@
 package com.earl.javachat.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.ProgressBar;
 
 import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.databinding.ActivityMainBinding;
-import com.earl.javachat.ui.chat.ChatFragment;
 import com.earl.javachat.ui.logIn.LogInFragment;
 import com.earl.javachat.ui.register.RegisterFragment;
 import com.earl.javachat.ui.register.UserDetailsFragment;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationContract {
 
@@ -42,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
         preferenceManager = new SharedPreferenceManager(this);
         boolean isSignedUp = preferenceManager.getBoolean(Keys.KEY_IS_SIGNED_UP);
         if (isSignedUp) {
-            showFragment(new ChatFragment());
+            chat();
         } else {
             showFragment(new LogInFragment());
         }
@@ -65,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
 
     @Override
     public void chat() {
-        showFragment(new ChatFragment());
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.earl.javachat.ui.logIn;
 
-import com.earl.javachat.core.SuccessOperationResultListener;
+import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.Repository;
 import com.earl.javachat.data.models.CurrentUser;
 
@@ -12,7 +12,7 @@ public class LogInPresenter implements LogInContract.Presenter {
     Repository.BaseRepository repository;
 
     @Override
-    public void logIn(CurrentUser.BaseCurrentUser user, SuccessOperationResultListener callback) {
+    public void logIn(CurrentUser.BaseCurrentUser user, OperationResultListener callback) {
         repository.logIn(user, callback);
     }
 

@@ -16,17 +16,14 @@ import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.PossibleServerErrors;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.core.SuccessOperationResultListener;
+import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.models.CurrentUser;
 import com.earl.javachat.databinding.FragmentLoginBinding;
 import com.earl.javachat.ui.NavigationContract;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-
-import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class LogInFragment extends Fragment implements SuccessOperationResultListener {
+public class LogInFragment extends Fragment implements OperationResultListener {
 
     FragmentLoginBinding binding;
     NavigationContract navigator;

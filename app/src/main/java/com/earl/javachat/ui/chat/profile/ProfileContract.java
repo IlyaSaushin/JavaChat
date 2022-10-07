@@ -1,12 +1,12 @@
-package com.earl.javachat.ui.chat;
+package com.earl.javachat.ui.chat.profile;
 
 import com.earl.javachat.core.BasePresenter;
 import com.earl.javachat.core.BaseView;
 
-public interface ChatContract  {
+public interface ProfileContract {
 
     interface Presenter extends BasePresenter {
-        void signOut();
+
     }
 
     interface View extends BaseView<Presenter> {

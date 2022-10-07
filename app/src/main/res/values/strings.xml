@@ -16,7 +16,7 @@
     <string name="enter_bio_tv">Enter your bio</string>
     <string name="finish">Finish</string>
     <string name="sign_out">Sign out</string>
-    <string name="welcome">Welcome!</string>
+    <string name="welcome">Welcome</string>
     <string name="login_to_continue">Log in to continue</string>
     <string name="email">Email</string>
     <string name="log_in">Log in</string>
@@ -26,4 +26,6 @@
     <string name="invalid_pass_err">Invalid password</string>
     <string name="no_such_user">User with such email and password is not registered</string>
     <string name="unknown_error">Unknown Error</string>
+    <string name="log_in_text">Log In</string>
+    <string name="show">Show</string>
 </resources>
