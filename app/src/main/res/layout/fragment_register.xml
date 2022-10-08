@@ -8,13 +8,25 @@
 
     <ImageView
         android:id="@+id/register_image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="210dp"
+        android:layout_height="180dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/register_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@mipmap/ic_chat_icon"
+        android:layout_marginTop="70dp"
+        />
+
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
         />
 
     <TextView
@@ -22,13 +34,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/enter_data_to_register_text"
+        android:fontFamily="@font/open_sans"
         android:textSize="18sp"
+        android:textColor="@color/text_color"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toBottomOf="@id/register_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/create_acc_form"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,23 +55,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttons"
-        android:focusedByDefault="true">
+        android:focusedByDefault="true"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="30dp">
 
         <EditText
             android:id="@+id/email_ed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/email_address"
+            android:fontFamily="@font/open_sans"
             android:background="@drawable/input_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/password_ed"
-            android:paddingStart="16sp"
-            android:padding="8dp"
+            android:paddingStart="43sp"
+            android:padding="15dp"
             android:layout_marginVertical="8dp"
-            android:layout_marginHorizontal="30dp"
             android:inputType="textEmailAddress"
+            />
+
+        <ImageView
+            android:id="@+id/email_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ic_mail"
+            app:layout_constraintTop_toTopOf="@id/email_ed"
+            app:layout_constraintBottom_toBottomOf="@id/email_ed"
+            app:layout_constraintStart_toStartOf="@id/email_ed"
+            android:layout_marginStart="10dp"
             />
 
         <EditText
@@ -63,15 +92,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:fontFamily="@font/open_sans"
             android:background="@drawable/input_background"
             app:layout_constraintTop_toBottomOf="@id/email_ed"
             app:layout_constraintStart_toStartOf="@id/email_ed"
             app:layout_constraintEnd_toEndOf="@id/email_ed"
             app:layout_constraintBottom_toTopOf="@id/password_twice_ed"
-            android:paddingStart="16sp"
-            android:padding="8dp"
-            android:layout_marginVertical="8dp"
+            android:paddingStart="43sp"
+            android:padding="15dp"
+            android:layout_marginVertical="20dp"
             android:inputType="textPassword"
+            />
+
+        <ImageView
+            android:id="@+id/first_lock"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="@id/password_ed"
+            app:layout_constraintBottom_toBottomOf="@id/password_ed"
+            app:layout_constraintStart_toStartOf="@id/email_icon"
+            android:src="@mipmap/ic_lock"
             />
 
         <EditText
@@ -79,15 +119,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/confirm_password"
+            android:fontFamily="@font/open_sans"
             android:background="@drawable/input_background"
             app:layout_constraintTop_toBottomOf="@id/password_ed"
             app:layout_constraintStart_toStartOf="@id/email_ed"
             app:layout_constraintEnd_toEndOf="@id/email_ed"
             app:layout_constraintBottom_toBottomOf="@id/password_ed"
-            android:paddingStart="16sp"
-            android:padding="8dp"
+            android:paddingStart="43sp"
+            android:padding="15dp"
             android:layout_marginVertical="8dp"
             android:inputType="textPassword"
+            />
+
+        <ImageView
+            android:id="@+id/second_lock"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="@id/password_twice_ed"
+            app:layout_constraintBottom_toBottomOf="@id/password_twice_ed"
+            app:layout_constraintStart_toStartOf="@id/email_icon"
+            android:src="@mipmap/ic_lock"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -100,14 +151,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="250dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="200dp">
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/create_acc_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="60dp"
             android:text="@string/create_acc_button"
+            android:fontFamily="@font/open_sans"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:background="@drawable/button_background"
@@ -115,7 +167,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="80dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

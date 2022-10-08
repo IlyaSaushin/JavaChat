@@ -6,6 +6,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.register.RegisterFragment">
 
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/avatar_layout"
         android:layout_width="0dp"
@@ -17,8 +28,8 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/acc_avatar"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,18 +39,16 @@
             app:riv_oval="true"
             />
 
-        <TextView
-            android:id="@+id/add_avatar_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/add_image"
-            android:textSize="18sp"
-            android:gravity="center_horizontal"
-            app:layout_constraintTop_toTopOf="@id/acc_avatar"
-            app:layout_constraintBottom_toBottomOf="@id/acc_avatar"
-            app:layout_constraintStart_toStartOf="@id/acc_avatar"
-            app:layout_constraintEnd_toEndOf="@id/acc_avatar"
-            />
+    <ImageView
+        android:id="@+id/add_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toTopOf="@id/avatar_layout"
+        app:layout_constraintBottom_toBottomOf="@id/avatar_layout"
+        app:layout_constraintStart_toStartOf="@id/avatar_layout"
+        app:layout_constraintEnd_toEndOf="@id/avatar_layout"
+        android:src="@drawable/ic_add_avatar"
+        />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -51,22 +60,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttons"
-        android:focusedByDefault="true">
+        android:layout_marginTop="30dp"
+        android:focusedByDefault="true"
+        android:layout_marginHorizontal="40dp">
 
         <EditText
             android:id="@+id/name_ed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_name_text"
+            android:fontFamily="@font/open_sans"
             android:background="@drawable/input_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/nick_ed"
             android:paddingStart="16sp"
-            android:padding="8dp"
+            android:padding="15dp"
             android:layout_marginVertical="8dp"
-            android:layout_marginHorizontal="30dp"
             />
 
         <EditText
@@ -74,14 +85,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_ur_nickname_tv"
+            android:fontFamily="@font/open_sans"
             android:background="@drawable/input_background"
             app:layout_constraintTop_toBottomOf="@id/name_ed"
             app:layout_constraintStart_toStartOf="@id/name_ed"
             app:layout_constraintEnd_toEndOf="@id/name_ed"
             app:layout_constraintBottom_toTopOf="@id/user_bio"
             android:paddingStart="16sp"
-            android:padding="8dp"
-            android:layout_marginVertical="8dp"
+            android:padding="15dp"
+            android:layout_marginVertical="20dp"
             />
 
         <EditText
@@ -89,13 +101,14 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:hint="@string/enter_bio_tv"
+            android:fontFamily="@font/open_sans"
             android:background="@drawable/input_background"
             app:layout_constraintTop_toBottomOf="@id/nick_ed"
             app:layout_constraintStart_toStartOf="@id/name_ed"
             app:layout_constraintEnd_toEndOf="@id/name_ed"
             app:layout_constraintBottom_toBottomOf="parent"
             android:paddingStart="16sp"
-            android:padding="8dp"
+            android:padding="15dp"
             android:layout_marginVertical="8dp"
             />
 
@@ -109,14 +122,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="250dp">
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginBottom="130dp">
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_details_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="60dp"
             android:text="@string/finish"
+            android:fontFamily="@font/open_sans"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:background="@drawable/button_background"

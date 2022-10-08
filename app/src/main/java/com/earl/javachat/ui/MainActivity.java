@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
         if (isSignedUp) {
             chat();
         } else {
-            showFragment(new LogInFragment());
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new LogInFragment())
+                    .commit();
         }
     }
 

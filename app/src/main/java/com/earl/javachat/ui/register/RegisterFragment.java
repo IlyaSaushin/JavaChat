@@ -45,6 +45,7 @@ public class RegisterFragment extends Fragment implements OperationResultListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.createAccButton.setOnClickListener(v -> register());
+        binding.iconBack.setOnClickListener(v -> navigator.back());
     }
 
     private Boolean isValidate() {
