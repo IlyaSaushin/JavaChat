@@ -54,8 +54,7 @@ public class ChatFragment extends Fragment implements ListFetchingListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchUsersList();
-        setUsersAvatar();
-        binding.logOutBtn.setOnClickListener(v -> signOut());
+//        setUsersAvatar();
     }
 
     private void fetchUsersList() {
@@ -63,11 +62,11 @@ public class ChatFragment extends Fragment implements ListFetchingListener {
         presenter.fetchUsersList(this);
     }
 
-    private void setUsersAvatar() {
+    /*private void setUsersAvatar() {
         byte[] userImageBytes = Base64.decode(preferenceManager.getString(Keys.KEY_IMAGE), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(userImageBytes, 0 , userImageBytes.length);
         binding.userAvatar.setImageBitmap(bitmap);
-    }
+    }*/
 
     private void signOut() {
         presenter.signOut();

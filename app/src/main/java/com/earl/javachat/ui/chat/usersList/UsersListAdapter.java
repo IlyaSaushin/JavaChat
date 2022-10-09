@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.earl.javachat.R;
 import com.earl.javachat.data.models.CurrentUser;
-import com.earl.javachat.databinding.UserRecyclerItemBinding;
+import com.earl.javachat.databinding.MessageRecyclerItemBinding;
 
 import java.util.List;
 
@@ -23,8 +23,8 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        UserRecyclerItemBinding binding = UserRecyclerItemBinding.bind(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.user_recycler_item, parent, false));
+        MessageRecyclerItemBinding binding = MessageRecyclerItemBinding.bind(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.message_recycler_item, parent, false));
         return new UserViewHolder(binding);
     }
 
@@ -41,9 +41,9 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
 
-        UserRecyclerItemBinding binding;
+        MessageRecyclerItemBinding binding;
 
-        UserViewHolder(UserRecyclerItemBinding binding) {
+        UserViewHolder(MessageRecyclerItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

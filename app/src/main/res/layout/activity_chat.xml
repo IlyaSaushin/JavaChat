@@ -9,10 +9,13 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/tabs_color"
+        app:tabSelectedTextColor="@color/secondPrimaryBlue"
+        app:tabTextAppearance="@style/MineCustomTabText"
         />
 
     <androidx.viewpager2.widget.ViewPager2
@@ -22,6 +25,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tabs"
         android:orientation="horizontal"
+        />
+
+    <View
+        android:id="@+id/stripe"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toTopOf="@id/tabs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/tabs"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
