@@ -63,7 +63,7 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.addAvatarTv.setOnClickListener(v -> {
+        binding.addAvatar.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             pickImage.launch(intent);
@@ -133,7 +133,7 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
                             InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                             binding.accAvatar.setImageBitmap(bitmap);
-                            binding.addAvatarTv.setVisibility(View.GONE);
+                            binding.addAvatar.setVisibility(View.GONE);
                             encodedImage = encodeImage(bitmap);
                         } catch (FileNotFoundException exception) {
                             exception.printStackTrace();

@@ -10,6 +10,8 @@ public interface NavigationContract {
 
     void chat();
 
+    void showAddNewContactFragment();
+
     void back();
 
     void showProgressBar();

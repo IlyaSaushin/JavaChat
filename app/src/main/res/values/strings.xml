@@ -28,4 +28,12 @@
     <string name="unknown_error">Unknown Error</string>
     <string name="log_in_text">Log In</string>
     <string name="show">Show</string>
+    <string name="messages">Messages</string>
+    <string name="search">Search</string>
+    <string name="_12_34pm">12:34 PM</string>
+    <string name="groups">Groups</string>
+    <string name="contacts">Contacts</string>
+    <string name="online">online</string>
+    <string name="search_ed">Search...</string>
+    <string name="global_search">Global search</string>
 </resources>
