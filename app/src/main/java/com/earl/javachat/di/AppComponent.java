@@ -1,6 +1,6 @@
 package com.earl.javachat.di;
 
-import com.earl.javachat.ui.chat.contacts.ContactsFragment;
+import com.earl.javachat.ui.chat.contacts.addNewContact.AddNewContactFragment;
 import com.earl.javachat.ui.chat.messages.ChatFragment;
 import com.earl.javachat.ui.logIn.LogInFragment;
 import com.earl.javachat.ui.register.RegisterFragment;
@@ -26,5 +26,5 @@ public interface AppComponent {
 
     void injectChatFragment(ChatFragment fragment);
 
-    void injectContactsFragment(ContactsFragment fragment);
+    void injectAddNewContactFragment(AddNewContactFragment fragment);
 }

@@ -1,6 +1,5 @@
-package com.earl.javachat.ui.chat.messages;
+package com.earl.javachat.ui.chat.contacts.addNewContact;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,45 +11,44 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.earl.javachat.JavaChatApp;
-import com.earl.javachat.core.Keys;
-import com.earl.javachat.core.SharedPreferenceManager;
+import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.UsersListFetchingResultListener;
 import com.earl.javachat.data.models.CurrentUser;
-import com.earl.javachat.databinding.FragmentChatBinding;
-import com.earl.javachat.ui.MainActivity;
+import com.earl.javachat.databinding.FragmentAddNewContactBinding;
+import com.earl.javachat.ui.NavigationContract;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class ChatFragment extends Fragment implements UsersListFetchingResultListener {
+public class AddNewContactFragment extends Fragment implements UsersListFetchingResultListener, OperationResultListener, OnUserClickListener {
 
-    FragmentChatBinding binding;
-    SharedPreferenceManager preferenceManager;
+    FragmentAddNewContactBinding binding;
     @Inject
-    ChatPresenter presenter;
-
-//    UsersListAdapter adapter;
+    AddNewContactPresenter presenter;
+    NavigationContract navigator;
+    UsersListAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectChatFragment(this);
+        ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectAddNewContactFragment(this);
         super.onCreate(savedInstanceState);
-        preferenceManager = new SharedPreferenceManager(requireContext());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentChatBinding.inflate(inflater, container, false);
+        binding = FragmentAddNewContactBinding.inflate(inflater, container, false);
+        navigator = (NavigationContract) requireActivity();
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        fetchUsersList();
-//        setUsersAvatar();
+        fetchUsersList();
+        binding.backStrlka.setOnClickListener(v -> navigator.back());
+        binding.clearSearchEd.setOnClickListener(v -> binding.searchEd.setText(""));
     }
 
     private void fetchUsersList() {
@@ -58,29 +56,31 @@ public class ChatFragment extends Fragment implements UsersListFetchingResultLis
         presenter.fetchUsersList(this);
     }
 
-    /*private void setUsersAvatar() {
-        byte[] userImageBytes = Base64.decode(preferenceManager.getString(Keys.KEY_IMAGE), Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(userImageBytes, 0 , userImageBytes.length);
-        binding.userAvatar.setImageBitmap(bitmap);
-    }*/
-
-    private void signOut() {
-        presenter.signOut();
-        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, false);
-        Intent intent = new Intent(requireContext(), MainActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     public void successList(List<CurrentUser.UserDetails> users) {
+        adapter = new UsersListAdapter(users, this);
+        binding.usersRecycler.setAdapter(adapter);
         binding.progressBar.setVisibility(View.GONE);
-//        adapter = new UsersListAdapter(users);
-//        binding.recycler.setAdapter(adapter);
     }
 
     @Override
     public void failList(Exception exception) {
+
+    }
+
+    @Override
+    public void success() {
+        Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void fail(Exception exception) {
         Toast.makeText(requireContext(), "Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void addUserToContacts(String userId) {
+        presenter.addUserToContacts(userId, this);
     }
 
     @Override

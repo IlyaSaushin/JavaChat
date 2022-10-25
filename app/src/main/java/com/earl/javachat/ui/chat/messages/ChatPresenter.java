@@ -1,8 +1,7 @@
 package com.earl.javachat.ui.chat.messages;
 
-import com.earl.javachat.core.ListFetchingListener;
+import com.earl.javachat.core.UsersListFetchingResultListener;
 import com.earl.javachat.data.Repository;
-import com.earl.javachat.ui.chat.messages.ChatContract;
 
 import javax.inject.Inject;
 
@@ -12,7 +11,7 @@ public class ChatPresenter implements ChatContract.Presenter {
     Repository.BaseRepository baseRepository;
 
     @Override
-    public void fetchUsersList(ListFetchingListener callback) {
+    public void fetchUsersList(UsersListFetchingResultListener callback) {
         baseRepository.fetchUsersList(callback);
     }
 

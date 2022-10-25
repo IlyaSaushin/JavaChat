@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.databinding.ActivityMainBinding;
+import com.earl.javachat.ui.chat.contacts.addNewContact.AddNewContactFragment;
 import com.earl.javachat.ui.logIn.LogInFragment;
 import com.earl.javachat.ui.register.RegisterFragment;
 import com.earl.javachat.ui.register.UserDetailsFragment;
@@ -58,8 +58,12 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
 
     @Override
     public void chat() {
-        Intent intent = new Intent(this, ChatActivity.class);
-        startActivity(intent);
+        showFragment(new ChatBaseFragment());
+    }
+
+    @Override
+    public void showAddNewContactFragment() {
+        showFragment(new AddNewContactFragment());
     }
 
     @Override

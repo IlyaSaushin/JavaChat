@@ -17,12 +17,13 @@ public interface CurrentUser {
         public String image;
         public String nickName;
         public String bio;
+        public String userId;
 
-
-        public UserDetails (String image, String nickname, String bio) {
+        public UserDetails (String image, String nickname, String bio, String userId) {
             this.image = image;
             this.nickName = nickname;
             this.bio = bio;
+            this.userId = userId;
         }
     }
 }

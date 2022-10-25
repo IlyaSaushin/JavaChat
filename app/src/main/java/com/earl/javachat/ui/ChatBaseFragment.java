@@ -8,38 +8,51 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.databinding.ActivityChatBinding;
+import com.earl.javachat.databinding.FragmentBaseChatBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.Objects;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatBaseFragment extends Fragment {
 
-    ActivityChatBinding binding;
+    FragmentBaseChatBinding binding;
     SharedPreferenceManager preferenceManager;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityChatBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        preferenceManager = new SharedPreferenceManager(this);
-        viewPager(this);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentBaseChatBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        preferenceManager = new SharedPreferenceManager(requireContext());
+        viewPager(requireContext());
     }
 
     private void viewPager(Context context) {
-        binding.pager.setAdapter(new ChatPagerAdapter(this));
+        binding.pager.setAdapter(new ChatPagerAdapter(requireActivity()));
 
         TabLayout tabs = binding.tabs;
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -82,5 +95,11 @@ public class ChatActivity extends AppCompatActivity {
                 tab.setIcon(R.mipmap.ic_test);
             }
         }).attach();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }
