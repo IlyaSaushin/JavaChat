@@ -22,19 +22,27 @@ import androidx.fragment.app.Fragment;
 
 import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.Keys;
-import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.core.OperationResultListener;
+import com.earl.javachat.core.SharedPreferenceManager;
+import com.earl.javachat.data.models.RegisterDto;
 import com.earl.javachat.databinding.FragmentUserDetailsBinding;
 import com.earl.javachat.ui.NavigationContract;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
 
 import javax.inject.Inject;
 
 public class UserDetailsFragment extends Fragment implements OperationResultListener {
+
+    String email;
+    String password;
+
+    public UserDetailsFragment(String email, String password) {
+        this.email = email;
+         this.password = password;
+    }
 
     FragmentUserDetailsBinding binding;
     String encodedImage;
@@ -68,7 +76,7 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             pickImage.launch(intent);
         });
-        binding.addDetailsButton.setOnClickListener(v -> saveAccountDetails());
+        binding.addDetailsButton.setOnClickListener(v -> register());
     }
 
     private boolean isValidate() {
@@ -80,7 +88,7 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
         );
     }
 
-    private void saveAccountDetails() {
+    private void register() {
         if (isValidate()) {
 
             navigator.showProgressBar();
@@ -91,13 +99,22 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
             preferenceManager.putString(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
             preferenceManager.putString(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());
 
-            HashMap<String, Object> userDetails = new HashMap<>();
+            RegisterDto registerDto = new RegisterDto(
+                    email,
+                    binding.nameEd.getText().toString(),
+                    password,
+                    encodedImage,
+                    binding.userBio.getText().toString()
+            );
+
+            /*HashMap<String, Object> userDetails = new HashMap<>();
             userDetails.put(Keys.KEY_IMAGE, encodedImage);
             userDetails.put(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
             userDetails.put(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
-            userDetails.put(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());
+            userDetails.put(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());*/
 
-            presenter.saveAccountDetails(userDetails, this);
+            String token = presenter.register(registerDto, this);
+            preferenceManager.putString(Keys.KEY_TOKEN, token);
         }
     }
 

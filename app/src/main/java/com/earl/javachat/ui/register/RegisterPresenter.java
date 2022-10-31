@@ -3,6 +3,7 @@ package com.earl.javachat.ui.register;
 import com.earl.javachat.data.Repository;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.models.CurrentUser;
+import com.earl.javachat.data.models.RegisterDto;
 
 import java.util.HashMap;
 
@@ -17,14 +18,14 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         this.repository = repository;
     }
 
-    @Override
+  /*  @Override
     public void saveAccountDetails(HashMap<String, Object> userDetails, OperationResultListener callback) {
         repository.saveDetails(userDetails, callback);
-    }
+    }*/
 
     @Override
-    public void register(CurrentUser.BaseCurrentUser user, OperationResultListener callback) {
-        repository.register(user, callback);
+    public String register(RegisterDto user, OperationResultListener callback) {
+        return repository.register(user, callback);
     }
 
     @Override

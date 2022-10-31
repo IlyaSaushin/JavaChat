@@ -14,10 +14,10 @@ import androidx.fragment.app.Fragment;
 import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
+import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.PossibleServerErrors;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.core.OperationResultListener;
-import com.earl.javachat.data.models.CurrentUser;
+import com.earl.javachat.data.models.LoginDto;
 import com.earl.javachat.databinding.FragmentLoginBinding;
 import com.earl.javachat.ui.NavigationContract;
 
@@ -52,7 +52,6 @@ public class LogInFragment extends Fragment implements OperationResultListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.logInButton.setOnClickListener(v -> logIn());
-        binding.signUpButton.setOnClickListener(v -> navigator.register());
     }
 
     private Boolean isValidate() {
@@ -65,11 +64,14 @@ public class LogInFragment extends Fragment implements OperationResultListener {
     private void logIn() {
         if (isValidate()) {
             navigator.showProgressBar();
-            CurrentUser.BaseCurrentUser user = new CurrentUser.BaseCurrentUser(
+
+            LoginDto user = new LoginDto(
                     binding.logInEmail.getText().toString().trim(),
                     binding.logInPassword.getText().toString().trim()
             );
-            presenter.logIn(user, this);
+            String token = presenter.logIn(user, this);
+            preferenceManager.putString(Keys.KEY_TOKEN, token);
+            Log.d("tag", "logIn: token -> " + token);
         }
     }
 

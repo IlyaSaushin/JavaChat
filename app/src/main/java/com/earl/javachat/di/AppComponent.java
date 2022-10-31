@@ -1,5 +1,6 @@
 package com.earl.javachat.di;
 
+import com.earl.javachat.data.retrofit.Client;
 import com.earl.javachat.ui.chat.contacts.addNewContact.AddNewContactFragment;
 import com.earl.javachat.ui.chat.messages.ChatFragment;
 import com.earl.javachat.ui.logIn.LogInFragment;
@@ -14,7 +15,8 @@ import dagger.Component;
 @Component( modules = {
     AuthorizationModule.class,
         DataModule.class,
-        ChatModule.class
+        ChatModule.class,
+        Client.class
 })
 public interface AppComponent {
 
@@ -27,4 +29,5 @@ public interface AppComponent {
     void injectChatFragment(ChatFragment fragment);
 
     void injectAddNewContactFragment(AddNewContactFragment fragment);
+
 }

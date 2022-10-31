@@ -12,13 +12,12 @@ import androidx.fragment.app.Fragment;
 
 import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.OperationResultListener;
-import com.earl.javachat.data.models.CurrentUser;
 import com.earl.javachat.databinding.FragmentRegisterBinding;
 import com.earl.javachat.ui.NavigationContract;
 
 import javax.inject.Inject;
 
-public class RegisterFragment extends Fragment implements OperationResultListener {
+public class RegisterFragment extends Fragment {
 
     FragmentRegisterBinding binding;
     @Inject
@@ -44,7 +43,7 @@ public class RegisterFragment extends Fragment implements OperationResultListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.createAccButton.setOnClickListener(v -> register());
+        binding.createAccButton.setOnClickListener(v -> userDetailsFragment());
         binding.iconBack.setOnClickListener(v -> navigator.back());
     }
 
@@ -56,26 +55,15 @@ public class RegisterFragment extends Fragment implements OperationResultListene
         );
     }
 
-    @Override
-    public void fail(Exception exception) {
-        // todo
-    }
-
-    @Override
-    public void success() {
-        Toast.makeText(requireContext(), "Done", Toast.LENGTH_LONG).show();
-        navigator.hideProgressBar();
-        navigator.showAddDetailsFragment();
-    }
-
-    private void register() {
+    private void userDetailsFragment() {
         if(isValidate()) {
-            navigator.showProgressBar();
-            CurrentUser.BaseCurrentUser user = new CurrentUser.BaseCurrentUser(
+            navigator.showAddDetailsFragment(binding.emailEd.getText().toString(),
+                    binding.passwordEd.getText().toString());
+            /*CurrentUser.BaseCurrentUser user = new CurrentUser.BaseCurrentUser(
                     binding.emailEd.getText().toString().trim(),
                     binding.passwordEd.getText().toString().trim()
             );
-            presenter.register(user, this);
+            presenter.register(user, this);*/
         }
     }
 

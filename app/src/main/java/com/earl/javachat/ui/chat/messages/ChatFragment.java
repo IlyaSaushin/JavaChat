@@ -1,6 +1,5 @@
 package com.earl.javachat.ui.chat.messages;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.earl.javachat.JavaChatApp;
-import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.core.UsersListFetchingResultListener;
 import com.earl.javachat.data.models.CurrentUser;
 import com.earl.javachat.databinding.FragmentChatBinding;
-import com.earl.javachat.ui.MainActivity;
 
 import java.util.List;
 
@@ -55,7 +52,7 @@ public class ChatFragment extends Fragment implements UsersListFetchingResultLis
 
     private void fetchUsersList() {
         binding.progressBar.setVisibility(View.VISIBLE);
-        presenter.fetchUsersList(this);
+//        presenter.fetchUsersList(this);
     }
 
     /*private void setUsersAvatar() {
@@ -64,12 +61,12 @@ public class ChatFragment extends Fragment implements UsersListFetchingResultLis
         binding.userAvatar.setImageBitmap(bitmap);
     }*/
 
-    private void signOut() {
-        presenter.signOut();
-        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, false);
-        Intent intent = new Intent(requireContext(), MainActivity.class);
-        startActivity(intent);
-    }
+//    private void signOut() {
+//        presenter.signOut();
+//        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, false);
+//        Intent intent = new Intent(requireContext(), MainActivity.class);
+//        startActivity(intent);
+//    }
 
     @Override
     public void successList(List<CurrentUser.UserDetails> users) {

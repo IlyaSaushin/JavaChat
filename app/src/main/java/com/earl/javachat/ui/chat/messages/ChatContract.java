@@ -7,8 +7,8 @@ import com.earl.javachat.core.UsersListFetchingResultListener;
 public interface ChatContract  {
 
     interface Presenter extends BasePresenter {
-        void signOut();
-        void fetchUsersList(UsersListFetchingResultListener callback);
+//        void signOut();
+//        void fetchUsersList(UsersListFetchingResultListener callback);
     }
 
     interface View extends BaseView<Presenter> {

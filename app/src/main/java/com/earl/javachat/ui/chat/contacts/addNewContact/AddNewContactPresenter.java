@@ -13,7 +13,7 @@ public class AddNewContactPresenter  implements AddNewContactContract.Presenter 
 
     @Override
     public void addUserToContacts(String userId, OperationResultListener callback) {
-        repository.addUserToContacts(userId, callback);
+//        repository.addUserToContacts(userId, callback);
     }
 
     public AddNewContactPresenter(Repository.BaseRepository repository) {
@@ -22,7 +22,7 @@ public class AddNewContactPresenter  implements AddNewContactContract.Presenter 
 
     @Override
     public void fetchUsersList(UsersListFetchingResultListener callback) {
-        repository.fetchUsersList(callback);
+//        repository.fetchUsersList(callback);
     }
 
     @Override

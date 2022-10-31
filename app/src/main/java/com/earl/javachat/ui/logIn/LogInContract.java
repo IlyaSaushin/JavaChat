@@ -4,11 +4,12 @@ import com.earl.javachat.core.BasePresenter;
 import com.earl.javachat.core.BaseView;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.models.CurrentUser;
+import com.earl.javachat.data.models.LoginDto;
 
 public interface LogInContract {
 
     interface Presenter extends BasePresenter {
-        void logIn(CurrentUser.BaseCurrentUser user, OperationResultListener callback);
+        String logIn(LoginDto user, OperationResultListener callback);
     }
 
     interface View extends BaseView<Presenter> {

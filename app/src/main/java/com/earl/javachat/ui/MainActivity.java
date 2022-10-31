@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
     }
 
     @Override
-    public void showAddDetailsFragment() {
-        showFragment(new UserDetailsFragment());
+    public void showAddDetailsFragment(String email, String password) {
+        showFragment(new UserDetailsFragment(email, password));
     }
 
     @Override

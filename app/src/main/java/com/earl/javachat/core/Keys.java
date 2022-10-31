@@ -11,4 +11,5 @@ public class Keys {
     public static final String KEY_USER_ID = "USER_ID";
     public static final String KEY_USER_BIO = "USER_BIO";
     public static final String KEY_IMAGE = "IMAGE";
+    public static final String KEY_TOKEN = "TOKEN";
 }

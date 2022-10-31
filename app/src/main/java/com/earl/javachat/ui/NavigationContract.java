@@ -6,7 +6,7 @@ public interface NavigationContract {
 
     void register();
 
-    void showAddDetailsFragment();
+    void showAddDetailsFragment(String email, String password);
 
     void chat();
 
