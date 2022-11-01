@@ -5,7 +5,7 @@
     android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.chat.messages.ChatFragment">
+    tools:context=".ui.chat.rooms.ChatFragment">
 
    <TextView
        android:id="@+id/messages_chapter"

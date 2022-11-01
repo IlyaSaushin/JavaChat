@@ -1,4 +1,4 @@
-package com.earl.javachat.ui.chat.messages;
+package com.earl.javachat.ui.chat.rooms;
 
 import com.earl.javachat.data.Repository;
 

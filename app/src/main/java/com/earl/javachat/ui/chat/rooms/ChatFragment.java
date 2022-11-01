@@ -1,4 +1,4 @@
-package com.earl.javachat.ui.chat.messages;
+package com.earl.javachat.ui.chat.rooms;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.core.UsersListFetchingResultListener;
 import com.earl.javachat.data.restModels.CurrentUser;
-import com.earl.javachat.databinding.FragmentChatBinding;
+import com.earl.javachat.databinding.FragmentRoomsBinding;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 
 public class ChatFragment extends Fragment implements UsersListFetchingResultListener {
 
-    FragmentChatBinding binding;
+    FragmentRoomsBinding binding;
     SharedPreferenceManager preferenceManager;
     @Inject
     ChatPresenter presenter;
@@ -39,7 +39,7 @@ public class ChatFragment extends Fragment implements UsersListFetchingResultLis
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentChatBinding.inflate(inflater, container, false);
+        binding = FragmentRoomsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

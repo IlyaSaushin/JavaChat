@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.earl.javachat.ui.chat.messages.ChatFragment;
+import com.earl.javachat.ui.chat.rooms.ChatFragment;
 import com.earl.javachat.ui.chat.contacts.ContactsFragment;
 import com.earl.javachat.ui.chat.groups.GroupsFragment;
 import com.earl.javachat.ui.chat.profile.ProfileFragment;
