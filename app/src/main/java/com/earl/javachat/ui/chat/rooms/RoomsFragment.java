@@ -11,27 +11,33 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.earl.javachat.JavaChatApp;
+import com.earl.javachat.core.Keys;
+import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.core.UsersListFetchingResultListener;
 import com.earl.javachat.data.restModels.CurrentUser;
+import com.earl.javachat.data.restModels.RoomResponseDto;
+import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.databinding.FragmentRoomsBinding;
+import com.earl.javachat.ui.NavigationContract;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class ChatFragment extends Fragment implements UsersListFetchingResultListener {
+public class RoomsFragment extends Fragment implements OperationResultListener {
 
     FragmentRoomsBinding binding;
     SharedPreferenceManager preferenceManager;
     @Inject
-    ChatPresenter presenter;
-
-//    UsersListAdapter adapter;
-
+    RoomsPresenter presenter;
+    NavigationContract navigator;
+    
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectChatFragment(this);
+        navigator = ((NavigationContract) requireActivity());
         super.onCreate(savedInstanceState);
         preferenceManager = new SharedPreferenceManager(requireContext());
     }
@@ -46,38 +52,37 @@ public class ChatFragment extends Fragment implements UsersListFetchingResultLis
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        fetchUsersList();
-//        setUsersAvatar();
+        fetchRoomsForUser();
     }
 
-    private void fetchUsersList() {
-        binding.progressBar.setVisibility(View.VISIBLE);
-//        presenter.fetchUsersList(this);
-    }
-
-    /*private void setUsersAvatar() {
-        byte[] userImageBytes = Base64.decode(preferenceManager.getString(Keys.KEY_IMAGE), Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(userImageBytes, 0 , userImageBytes.length);
-        binding.userAvatar.setImageBitmap(bitmap);
-    }*/
-
-//    private void signOut() {
-//        presenter.signOut();
-//        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, false);
-//        Intent intent = new Intent(requireContext(), MainActivity.class);
-//        startActivity(intent);
-//    }
-
-    @Override
-    public void successList(List<CurrentUser.UserDetails> users) {
-        binding.progressBar.setVisibility(View.GONE);
-//        adapter = new UsersListAdapter(users);
-//        binding.recycler.setAdapter(adapter);
+    private void fetchRoomsForUser() {
+        navigator.showProgressBar();
+        String token = preferenceManager.getString(Keys.KEY_TOKEN);
+        presenter.fetchRoomsForUser(token, this);
     }
 
     @Override
-    public void failList(Exception exception) {
-        Toast.makeText(requireContext(), "Fail", Toast.LENGTH_SHORT).show();
+    public <T> void success(T success) {
+        List<RoomResponseDto> roomsList = Collections.emptyList();
+        try {
+            roomsList = (List<RoomResponseDto>) success;
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), "Unable to cast server response to list", Toast.LENGTH_SHORT).show();
+        }
+
+        recycler(roomsList);
+    }
+
+    private void recycler(List<RoomResponseDto> roomsList) {
+        RoomsRecyclerAdapter adapter = new RoomsRecyclerAdapter(roomsList);
+        binding.recycler.setAdapter(adapter);
+        navigator.hideProgressBar();
+    }
+
+    @Override
+    public void fail(Exception exception) {
+        navigator.hideProgressBar();
+        Toast.makeText(requireContext(), "Unable to fetch rooms for user", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -4,15 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class RoomResponseDto {
 
-    @SerializedName("id") String id;
-    @SerializedName("name") String name;
-    @SerializedName("author") String author;
-    @SerializedName("private") String isPrivate;
+    @SerializedName("id") public String id;
+    @SerializedName("name") public String name;
+    @SerializedName("private") public String isPrivate;
 
-    public RoomResponseDto(String id, String name, String author, String isPrivate) {
+    public RoomResponseDto(String id, String name, String isPrivate) {
         this.id = id;
         this.name = name;
-        this.author = author;
         this.isPrivate = isPrivate;
     }
 }

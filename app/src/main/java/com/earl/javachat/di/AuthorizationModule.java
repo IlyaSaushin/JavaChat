@@ -1,7 +1,7 @@
 package com.earl.javachat.di;
 
 import com.earl.javachat.data.Repository;
-import com.earl.javachat.ui.chat.rooms.ChatPresenter;
+import com.earl.javachat.ui.chat.rooms.RoomsPresenter;
 import com.earl.javachat.ui.logIn.LogInFormValidation;
 import com.earl.javachat.ui.logIn.LogInPresenter;
 import com.earl.javachat.ui.register.RegisterFormValidation;
@@ -42,8 +42,8 @@ public class AuthorizationModule {
 
     @Provides
     @Singleton
-    ChatPresenter providesChatPresenter(Repository.BaseRepository repository) {
-        return new ChatPresenter(repository);
+    RoomsPresenter providesChatPresenter(Repository.BaseRepository repository) {
+        return new RoomsPresenter(repository);
     }
 
     @Provides

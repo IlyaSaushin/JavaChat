@@ -2,12 +2,12 @@ package com.earl.javachat.ui.chat.rooms;
 
 import com.earl.javachat.core.BasePresenter;
 import com.earl.javachat.core.BaseView;
+import com.earl.javachat.core.OperationResultListener;
 
-public interface ChatContract  {
+public interface RoomsContract {
 
     interface Presenter extends BasePresenter {
-//        void signOut();
-//        void fetchUsersList(UsersListFetchingResultListener callback);
+        void fetchRoomsForUser(String token, OperationResultListener callback);
     }
 
     interface View extends BaseView<Presenter> {

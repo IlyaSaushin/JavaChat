@@ -3,9 +3,12 @@ package com.earl.javachat.data;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.data.restModels.RegisterDto;
+import com.earl.javachat.data.restModels.RoomResponseDto;
 import com.earl.javachat.data.restModels.TokenDto;
 import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.data.retrofit.Service;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -20,6 +23,8 @@ public interface Repository {
     void register(RegisterDto registerDto, OperationResultListener callback);
 
     void fetchUserInfo(String token, OperationResultListener callback);
+
+    void fetchRoomsForUser(String token, OperationResultListener callback);
 
     class BaseRepository implements Repository {
 
@@ -84,6 +89,23 @@ public interface Repository {
 
                 @Override
                 public void onFailure(Call<UserInfo> call, Throwable t) {
+                    callback.fail(new Exception(t));
+                }
+            });
+        }
+
+        @Override
+        public void fetchRoomsForUser(String token, OperationResultListener callback) {
+            TokenDto tokenDto = new TokenDto(token);
+            Call<List<RoomResponseDto>> listCall = service.fetchRoomsForUser(tokenDto);
+            listCall.enqueue(new Callback<List<RoomResponseDto>>() {
+                @Override
+                public void onResponse(Call<List<RoomResponseDto>> call, Response<List<RoomResponseDto>> response) {
+                    callback.success(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<List<RoomResponseDto>> call, Throwable t) {
                     callback.fail(new Exception(t));
                 }
             });
