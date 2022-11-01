@@ -6,6 +6,7 @@ import com.earl.javachat.data.restModels.NewRoomRequestDto;
 import com.earl.javachat.data.restModels.RegisterDto;
 import com.earl.javachat.data.restModels.RoomResponseDto;
 import com.earl.javachat.data.restModels.TokenDto;
+import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.data.restModels.Users;
 
 import java.util.List;
@@ -50,5 +51,11 @@ public interface Service {
     @POST("/addRoom")
     Call<TokenDto> addRoom(
             @Body NewRoomRequestDto room
+    );
+
+    @Headers("Content-Type: application/json")
+    @POST("/fetchUserInfo")
+    Call<UserInfo> fetchUserInfo(
+            @Body TokenDto token
     );
 }

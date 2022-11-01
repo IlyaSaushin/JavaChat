@@ -1,23 +1,22 @@
-package com.earl.javachat.ui.logIn;
+package com.earl.javachat.ui.chat.base;
 
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.Repository;
-import com.earl.javachat.data.restModels.LoginDto;
 
 import javax.inject.Inject;
 
-public class LogInPresenter implements LogInContract.Presenter {
+public class ChatBaseFragmentPresenter implements ChatBaseFragmentContract.Presenter {
 
     @Inject
     Repository.BaseRepository repository;
 
-    public LogInPresenter(Repository.BaseRepository repository) {
+    public ChatBaseFragmentPresenter(Repository.BaseRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public void logIn(LoginDto user, OperationResultListener callback) {
-        repository.logIn(user, callback);
+    public void fetchUserInfo(String token, OperationResultListener callback) {
+        repository.fetchUserInfo(token, callback);
     }
 
     @Override

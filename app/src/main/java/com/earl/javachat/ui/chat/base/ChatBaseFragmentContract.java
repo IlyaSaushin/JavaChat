@@ -1,14 +1,13 @@
-package com.earl.javachat.ui.logIn;
+package com.earl.javachat.ui.chat.base;
 
 import com.earl.javachat.core.BasePresenter;
 import com.earl.javachat.core.BaseView;
 import com.earl.javachat.core.OperationResultListener;
-import com.earl.javachat.data.restModels.LoginDto;
 
-public interface LogInContract {
+public interface ChatBaseFragmentContract {
 
     interface Presenter extends BasePresenter {
-        void logIn(LoginDto user, OperationResultListener callback);
+        void fetchUserInfo(String token, OperationResultListener callback);
     }
 
     interface View extends BaseView<Presenter> {

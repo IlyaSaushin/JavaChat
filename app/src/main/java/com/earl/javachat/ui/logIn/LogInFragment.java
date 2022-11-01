@@ -70,16 +70,18 @@ public class LogInFragment extends Fragment implements OperationResultListener {
                     binding.logInEmail.getText().toString().trim(),
                     binding.logInPassword.getText().toString().trim()
             );
-            String token = presenter.logIn(user, this);
-            preferenceManager.putString(Keys.KEY_TOKEN, token);
-            Log.d("tag", "logIn: token -> " + token);
+            presenter.logIn(user, this);
+/*            preferenceManager.putString(Keys.KEY_TOKEN, token);
+            Log.d("tag", "logIn: token -> " + token);*/
         }
     }
 
     @Override
-    public void success() {
+    public <T> void success(T success) {
         navigator.hideProgressBar();
         preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
+        preferenceManager.putString(Keys.KEY_TOKEN, success.toString());
+        Toast.makeText(requireContext(), success.toString(), Toast.LENGTH_SHORT).show();
         navigator.chat();
     }
 

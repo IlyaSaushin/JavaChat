@@ -8,7 +8,7 @@ import com.earl.javachat.data.restModels.RegisterDto;
 public interface RegisterContract {
 
     interface Presenter extends BasePresenter {
-        String register(RegisterDto currentUser, OperationResultListener callback);
+        void register(RegisterDto currentUser, OperationResultListener callback);
 //        void saveAccountDetails(HashMap<String, Object> userDetails, OperationResultListener callback);
     }
 

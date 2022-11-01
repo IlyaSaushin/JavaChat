@@ -69,7 +69,7 @@ public class AddNewContactFragment extends Fragment implements UsersListFetching
     }
 
     @Override
-    public void success() {
+    public <T> void success(T success) {
         Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show();
     }
 

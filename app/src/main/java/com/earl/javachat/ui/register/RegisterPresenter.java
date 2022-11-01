@@ -21,8 +21,8 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }*/
 
     @Override
-    public String register(RegisterDto user, OperationResultListener callback) {
-        return repository.register(user, callback);
+    public void register(RegisterDto user, OperationResultListener callback) {
+        repository.register(user, callback);
     }
 
     @Override

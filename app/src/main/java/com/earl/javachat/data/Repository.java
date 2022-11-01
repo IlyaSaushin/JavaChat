@@ -1,11 +1,10 @@
 package com.earl.javachat.data;
 
-import android.util.Log;
-
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.data.restModels.RegisterDto;
 import com.earl.javachat.data.restModels.TokenDto;
+import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.data.retrofit.Service;
 
 import javax.inject.Inject;
@@ -16,9 +15,11 @@ import retrofit2.Response;
 
 public interface Repository {
 
-    String logIn(LoginDto user, OperationResultListener callback);
+    void logIn(LoginDto user, OperationResultListener callback);
 
-    String register(RegisterDto registerDto, OperationResultListener callback);
+    void register(RegisterDto registerDto, OperationResultListener callback);
+
+    void fetchUserInfo(String token, OperationResultListener callback);
 
     class BaseRepository implements Repository {
 
@@ -30,90 +31,62 @@ public interface Repository {
         }
 
         @Override
-        public String logIn(LoginDto user, OperationResultListener callback) {
+        public void logIn(LoginDto user, OperationResultListener callback) {
 
             Call<TokenDto> token = service.login(user);
-            Log.d("tag", "logIn: service" + service);
             token.enqueue(new Callback<TokenDto>() {
                 @Override
                 public void onResponse(Call<TokenDto> call, Response<TokenDto> response) {
                     if (response.isSuccessful()) {
-                        Log.d("tag", "onResponse: -> " + response);
-                        Log.d("tag", "onResponse: body  -> " + response.body());
-//                        String token = response.body();
-                        callback.success();
+                        assert response.body() != null;
+                        callback.success(response.body().token);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<TokenDto> call, Throwable t) {
-                    Log.d("tag", "onFailure: t" + t);
                     t.fillInStackTrace();
-                    Log.d("tag", "onFailure:  -> " + call);
+                    callback.fail(new Exception(t));
                 }
             });
-
-            /*String token = null;
-            try {
-                token = service.login(user).toString();
-                callback.success();
-            } catch (Exception e) {
-                callback.fail(e);
-            }
-            return token;*/
-            return "";
         }
 
 
         @Override
-        public String register(RegisterDto registerDto, OperationResultListener callback) {
-
-            Log.d("tag", "register: service ->" + service);
-            Log.d("tag", "register: dto ->" + registerDto.toString());
+        public void register(RegisterDto registerDto, OperationResultListener callback) {
 
             Call<TokenDto> tokenDtoCall = service.register(registerDto);
             tokenDtoCall.enqueue(new Callback<TokenDto>() {
                 @Override
                 public void onResponse(Call<TokenDto> call, Response<TokenDto> response) {
                     if (response.isSuccessful()) {
-                        Log.d("tag", "onResponse: -> " + response);
-                        Log.d("tag", "onResponse: body  -> " + response.body());
-//                        String token = response.body();
-                        callback.success();
+                        assert response.body() != null;
+                        callback.success(response.body().token);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<TokenDto> call, Throwable t) {
-                    Log.d("tag", "onFailure: t" + t);
                     t.fillInStackTrace();
-                    Log.d("tag", "onFailure:  -> " + call);
+                    callback.fail(new Exception(t));
                 }
             });
-            return null;
+        }
+
+        @Override
+        public void fetchUserInfo(String token, OperationResultListener callback) {
+            TokenDto tokenDto = new TokenDto(token);
+            Call<UserInfo> userInfoCall = service.fetchUserInfo(tokenDto);
+            userInfoCall.enqueue(new Callback<UserInfo>() {
+                @Override
+                public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                    callback.success(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<UserInfo> call, Throwable t) {
+                    callback.fail(new Exception(t));
+                }
+            });
         }
     }
 }
-
-/*
-NetworkService.getInstance()
-        .getJSONApi()
-        .getPostWithID(1)
-        .enqueue(new Callback<Post>() {
-@Override
-public void onResponse(@NonNull Call<Post> call, @NonNull Response<Post> response) {
-        Post post = response.body();
-
-        textView.append(post.getId() + "\n");
-        textView.append(post.getUserId() + "\n");
-        textView.append(post.getTitle() + "\n");
-        textView.append(post.getBody() + "\n");
-        }
-
-@Override
-public void onFailure(@NonNull Call<Post> call, @NonNull Throwable t) {
-
-        textView.append("Error occurred while getting request!");
-        t.printStackTrace();
-        }
-        });*/

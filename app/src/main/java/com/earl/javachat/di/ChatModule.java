@@ -1,6 +1,7 @@
 package com.earl.javachat.di;
 
 import com.earl.javachat.data.Repository;
+import com.earl.javachat.ui.chat.base.ChatBaseFragmentPresenter;
 import com.earl.javachat.ui.chat.contacts.addNewContact.AddNewContactPresenter;
 
 import javax.inject.Singleton;
@@ -15,5 +16,11 @@ public class ChatModule {
     @Singleton
     AddNewContactPresenter provideAddNewContactPresenter(Repository.BaseRepository repository) {
         return new AddNewContactPresenter(repository);
+    }
+
+    @Provides
+    @Singleton
+    ChatBaseFragmentPresenter provideBaseChatFragmentPresenter(Repository.BaseRepository repository) {
+        return new ChatBaseFragmentPresenter(repository);
     }
 }

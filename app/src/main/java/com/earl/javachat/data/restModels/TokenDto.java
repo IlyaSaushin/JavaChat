@@ -4,7 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class TokenDto {
 
-    @SerializedName("token") String token;
+    @SerializedName("token")
+    public String token;
 
     public TokenDto(String token) {
         this.token = token;

@@ -1,4 +1,4 @@
-package com.earl.javachat.ui;
+package com.earl.javachat.ui.chat.base;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,22 +19,35 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
+import com.earl.javachat.core.OnBackPressedListener;
+import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.SharedPreferenceManager;
+import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.databinding.FragmentBaseChatBinding;
+import com.earl.javachat.ui.NavigationContract;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.Objects;
 
-public class ChatBaseFragment extends Fragment {
+import javax.inject.Inject;
+
+public class ChatBaseFragment extends Fragment implements OperationResultListener, OnBackPressedListener {
 
     FragmentBaseChatBinding binding;
     SharedPreferenceManager preferenceManager;
+    NavigationContract navigator;
+    @Inject
+    ChatBaseFragmentPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectBaseChatFragment(this);
+        navigator = ((NavigationContract) requireActivity());
         super.onCreate(savedInstanceState);
     }
 
@@ -49,6 +62,7 @@ public class ChatBaseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         preferenceManager = new SharedPreferenceManager(requireContext());
+        fetchUserInfo();
         viewPager(requireContext());
     }
 
@@ -103,12 +117,34 @@ public class ChatBaseFragment extends Fragment {
     }
 
     private void fetchUserInfo() {
+        navigator.showProgressBar();
         String token = preferenceManager.getString(Keys.KEY_TOKEN);
         if (token == null) {
-            Toast.makeText(requireContext(), "Invalid personal token, please reload app", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "No personal token, please reload app", Toast.LENGTH_SHORT).show();
         } else {
-
+            presenter.fetchUserInfo(token, this);
         }
+    }
+
+    @Override
+    public <T> void success(T success) {
+        UserInfo userInfo = (UserInfo) success;
+        preferenceManager.putString(Keys.KEY_IMAGE, userInfo.pic);
+        preferenceManager.putString(Keys.KEY_EMAIL, userInfo.email);
+        preferenceManager.putString(Keys.KEY_NAME, userInfo.username);
+        preferenceManager.putString(Keys.KEY_USER_BIO, userInfo.bio);
+        navigator.hideProgressBar();
+    }
+
+    @Override
+    public void fail(Exception exception) {
+        navigator.hideProgressBar();
+        Toast.makeText(requireContext(), "Unable to get user info, please check server connection", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        navigator.closeApp();
     }
 
     @Override

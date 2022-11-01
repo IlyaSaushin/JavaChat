@@ -17,4 +17,6 @@ public interface NavigationContract {
     void showProgressBar();
 
     void hideProgressBar();
+
+    void closeApp();
 }

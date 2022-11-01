@@ -2,6 +2,7 @@ package com.earl.javachat.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Window;
 
 import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
+import com.earl.javachat.core.OnBackPressedListener;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.databinding.ActivityMainBinding;
 import com.earl.javachat.ui.chat.contacts.addNewContact.AddNewContactFragment;
@@ -84,6 +86,29 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
     @Override
     public void back() {
         getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void closeApp() {
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        OnBackPressedListener backPressedListener = null;
+        for (Fragment fragment: fm.getFragments()) {
+            if (fragment instanceof  OnBackPressedListener) {
+                backPressedListener = (OnBackPressedListener) fragment;
+                break;
+            }
+        }
+
+        if (backPressedListener != null) {
+            backPressedListener.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void showFragment(Fragment fragment) {

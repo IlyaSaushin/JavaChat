@@ -93,12 +93,6 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
 
             navigator.showProgressBar();
 
-//            preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
-            preferenceManager.putString(Keys.KEY_IMAGE, encodedImage);
-            preferenceManager.putString(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
-            preferenceManager.putString(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
-            preferenceManager.putString(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());
-
             RegisterDto registerDto = new RegisterDto(
                     email,
                     binding.nameEd.getText().toString(),
@@ -106,29 +100,27 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
                     encodedImage,
                     binding.userBio.getText().toString()
             );
-
-            /*HashMap<String, Object> userDetails = new HashMap<>();
-            userDetails.put(Keys.KEY_IMAGE, encodedImage);
-            userDetails.put(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
-            userDetails.put(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
-            userDetails.put(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());*/
-
-            String token = presenter.register(registerDto, this);
-            preferenceManager.putString(Keys.KEY_TOKEN, token);
+            presenter.register(registerDto, this);
         }
     }
 
     @Override
-    public void success() {
+    public <T> void success(T success) {
+        preferenceManager.putString(Keys.KEY_IMAGE, encodedImage);
+        preferenceManager.putString(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
+        preferenceManager.putString(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
+        preferenceManager.putString(Keys.KEY_USER_BIO, binding.userBio.getText().toString().trim());
         preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
+        preferenceManager.putString(Keys.KEY_TOKEN, success.toString());
         navigator.hideProgressBar();
-        Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
         navigator.chat();
     }
 
     @Override
     public void fail(Exception exception) {
-        // todo
+        Toast.makeText(requireContext(),
+                "Registration failed, exception - " + exception + "Try to login, or register again",
+                Toast.LENGTH_LONG).show();
     }
 
     private String encodeImage(Bitmap bitmap) {
