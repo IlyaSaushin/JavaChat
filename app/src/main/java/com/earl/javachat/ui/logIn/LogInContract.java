@@ -3,8 +3,7 @@ package com.earl.javachat.ui.logIn;
 import com.earl.javachat.core.BasePresenter;
 import com.earl.javachat.core.BaseView;
 import com.earl.javachat.core.OperationResultListener;
-import com.earl.javachat.data.models.CurrentUser;
-import com.earl.javachat.data.models.LoginDto;
+import com.earl.javachat.data.restModels.LoginDto;
 
 public interface LogInContract {
 

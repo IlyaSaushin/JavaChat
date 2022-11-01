@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.core.UsersListFetchingResultListener;
-import com.earl.javachat.data.models.CurrentUser;
+import com.earl.javachat.data.restModels.CurrentUser;
 import com.earl.javachat.databinding.FragmentChatBinding;
 
 import java.util.List;

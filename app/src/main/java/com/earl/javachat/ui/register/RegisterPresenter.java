@@ -2,10 +2,7 @@ package com.earl.javachat.ui.register;
 
 import com.earl.javachat.data.Repository;
 import com.earl.javachat.core.OperationResultListener;
-import com.earl.javachat.data.models.CurrentUser;
-import com.earl.javachat.data.models.RegisterDto;
-
-import java.util.HashMap;
+import com.earl.javachat.data.restModels.RegisterDto;
 
 import javax.inject.Inject;
 

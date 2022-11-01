@@ -1,4 +1,4 @@
-package com.earl.javachat.data.models;
+package com.earl.javachat.data.restModels;
 
 public interface CurrentUser {
 

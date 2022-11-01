@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.UsersListFetchingResultListener;
-import com.earl.javachat.data.models.CurrentUser;
+import com.earl.javachat.data.restModels.CurrentUser;
 import com.earl.javachat.databinding.FragmentAddNewContactBinding;
 import com.earl.javachat.ui.NavigationContract;
 

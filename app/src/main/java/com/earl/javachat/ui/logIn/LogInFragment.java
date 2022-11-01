@@ -17,7 +17,7 @@ import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.PossibleServerErrors;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.data.models.LoginDto;
+import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.databinding.FragmentLoginBinding;
 import com.earl.javachat.ui.NavigationContract;
 
@@ -52,6 +52,7 @@ public class LogInFragment extends Fragment implements OperationResultListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.logInButton.setOnClickListener(v -> logIn());
+        binding.signUpButton.setOnClickListener(v -> navigator.register());
     }
 
     private Boolean isValidate() {

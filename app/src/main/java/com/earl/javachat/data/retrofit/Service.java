@@ -1,6 +1,8 @@
 package com.earl.javachat.data.retrofit;
 
-import com.earl.javachat.data.models.LoginDto;
+import com.earl.javachat.data.restModels.LoginDto;
+import com.earl.javachat.data.restModels.RegisterDto;
+import com.earl.javachat.data.restModels.TokenDto;
 
 import java.util.List;
 
@@ -14,20 +16,20 @@ public interface Service {
 
     @Headers("Content-Type: application/json")
     @POST("/register")
-    Call<Token> register(
+    Call<TokenDto> register(
             @Body RegisterDto registerDto
     );
 
     @Headers("Content-Type: application/json")
     @POST("/login")
-    Call<Token> login(
+    Call<TokenDto> login(
             @Body LoginDto loginDto
     );
 
     @Headers("Content-Type: application/json")
     @POST("/fetchRoomsForUser")
     Call<List<RoomsResponse>> fetchRoomsForUser(
-            @Body Token token
+            @Body TokenDto token
     );
 
     @Headers("Content-Type: application/json")
@@ -37,12 +39,12 @@ public interface Service {
     @Headers("Content-Type: application/json")
     @POST("/messages")
     Call<List<MessageResponseDto>> fetchMessagesForRoom(
-            @Body Token roomToken
+            @Body TokenDto roomToken
     );
 
     @Headers("Content-Type: application/json")
     @POST("/addRoom")
-    Call<Token> addRoom(
+    Call<TokenDto> addRoom(
             @Body NewRoomRequestDto room
     );
 }

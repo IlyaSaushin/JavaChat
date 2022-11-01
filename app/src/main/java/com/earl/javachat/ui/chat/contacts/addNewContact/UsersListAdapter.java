@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.earl.javachat.R;
-import com.earl.javachat.data.models.CurrentUser;
+import com.earl.javachat.data.restModels.CurrentUser;
 import com.earl.javachat.databinding.GlobalUsersRecyclerItemBinding;
 
 import java.util.List;

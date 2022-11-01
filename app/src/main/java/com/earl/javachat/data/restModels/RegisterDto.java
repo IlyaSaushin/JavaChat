@@ -1,4 +1,4 @@
-package com.earl.javachat.data.models;
+package com.earl.javachat.data.restModels;
 
 import com.google.gson.annotations.SerializedName;
 

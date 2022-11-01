@@ -1,6 +1,6 @@
 package com.earl.javachat.core;
 
-import com.earl.javachat.data.models.CurrentUser;
+import com.earl.javachat.data.restModels.CurrentUser;
 
 import java.util.List;
 

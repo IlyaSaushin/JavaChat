@@ -24,7 +24,7 @@ import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.data.models.RegisterDto;
+import com.earl.javachat.data.restModels.RegisterDto;
 import com.earl.javachat.databinding.FragmentUserDetailsBinding;
 import com.earl.javachat.ui.NavigationContract;
 
