@@ -25,10 +25,12 @@ public interface Repository {
         @Inject
         Service service;
 
+        public BaseRepository(Service service) {
+            this.service = service;
+        }
+
         @Override
         public String logIn(LoginDto user, OperationResultListener callback) {
-
-
 
             Call<TokenDto> token = service.login(user);
             Log.d("tag", "logIn: service" + service);
@@ -45,6 +47,8 @@ public interface Repository {
 
                 @Override
                 public void onFailure(Call<TokenDto> call, Throwable t) {
+                    Log.d("tag", "onFailure: t" + t);
+                    t.fillInStackTrace();
                     Log.d("tag", "onFailure:  -> " + call);
                 }
             });
@@ -81,6 +85,8 @@ public interface Repository {
 
                 @Override
                 public void onFailure(Call<TokenDto> call, Throwable t) {
+                    Log.d("tag", "onFailure: t" + t);
+                    t.fillInStackTrace();
                     Log.d("tag", "onFailure:  -> " + call);
                 }
             });

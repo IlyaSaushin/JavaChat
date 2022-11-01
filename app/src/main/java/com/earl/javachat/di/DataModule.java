@@ -1,6 +1,7 @@
 package com.earl.javachat.di;
 
 import com.earl.javachat.data.Repository;
+import com.earl.javachat.data.retrofit.Service;
 
 import javax.inject.Singleton;
 
@@ -12,7 +13,7 @@ public class DataModule {
 
     @Provides
     @Singleton
-    Repository.BaseRepository provideRepository() {
-        return new Repository.BaseRepository();
+    Repository.BaseRepository provideRepository(Service service) {
+        return new Repository.BaseRepository(service);
     }
 }

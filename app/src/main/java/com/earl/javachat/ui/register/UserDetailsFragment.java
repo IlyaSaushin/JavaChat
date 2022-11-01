@@ -93,7 +93,7 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
 
             navigator.showProgressBar();
 
-            preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
+//            preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
             preferenceManager.putString(Keys.KEY_IMAGE, encodedImage);
             preferenceManager.putString(Keys.KEY_NAME, binding.nameEd.getText().toString().trim());
             preferenceManager.putString(Keys.KEY_NICK_NAME, binding.nickEd.getText().toString().trim());
@@ -120,6 +120,7 @@ public class UserDetailsFragment extends Fragment implements OperationResultList
 
     @Override
     public void success() {
+        preferenceManager.putBoolean(Keys.KEY_IS_SIGNED_UP, true);
         navigator.hideProgressBar();
         Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
         navigator.chat();
