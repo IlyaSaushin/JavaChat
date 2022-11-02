@@ -15,6 +15,7 @@ import com.earl.javachat.R;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.SharedPreferenceManager;
+import com.earl.javachat.data.restModels.RemoveUserFromContactsDto;
 import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.databinding.FragmentContactsBinding;
 import com.earl.javachat.ui.NavigationContract;
@@ -24,7 +25,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ContactsFragment extends Fragment implements OperationResultListener {
+public class ContactsFragment extends Fragment implements OperationResultListener, OnUserClickListener {
 
     FragmentContactsBinding binding;
     NavigationContract navigator;
@@ -83,9 +84,18 @@ public class ContactsFragment extends Fragment implements OperationResultListene
     }
 
     private void recycler(List<UserInfo> list) {
-        ContactsRecyclerAdapter adapter = new ContactsRecyclerAdapter(list);
+        ContactsRecyclerAdapter adapter = new ContactsRecyclerAdapter(list, this);
         binding.recycler.setAdapter(adapter);
         navigator.hideProgressBar();
+    }
+
+    @Override
+    public void removeUserFromContacts(String contactUsername) {
+        RemoveUserFromContactsDto removeUserFromContactsDto = new RemoveUserFromContactsDto(
+                preferenceManager.getString(Keys.KEY_NAME),
+                contactUsername
+        );
+        presenter.removeUserFromContacts(removeUserFromContactsDto);
     }
 
     @Override

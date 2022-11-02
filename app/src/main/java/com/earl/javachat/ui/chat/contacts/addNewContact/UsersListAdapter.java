@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.earl.javachat.R;
-import com.earl.javachat.data.restModels.CurrentUser;
 import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.databinding.GlobalUsersRecyclerItemBinding;
 
@@ -66,9 +65,11 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
 
         @Override
         public void addUserToContacts(String username) {
-            binding.addUserBtn.setOnClickListener(v -> clickListener.addUserToContacts(username));
-            binding.addUserBtn.setVisibility(View.INVISIBLE);
-            binding.addUserAdded.setVisibility(View.VISIBLE);
+            binding.addUserBtn.setOnClickListener(view -> {
+                clickListener.addUserToContacts(username);
+                binding.addUserBtn.setVisibility(View.INVISIBLE);
+                binding.addUserAdded.setVisibility(View.VISIBLE);
+            });
         }
     }
 }

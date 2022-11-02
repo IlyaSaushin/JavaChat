@@ -1,6 +1,7 @@
 package com.earl.javachat.ui.chat.contacts.addNewContact;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +94,7 @@ public class AddNewContactFragment extends Fragment implements OperationResultLi
     @Override
     public void addUserToContacts(String contactUsername) {
         String username = preferenceManager.getString(Keys.KEY_NAME);
+        Log.d("tag", "addUserToContacts: USERNAME -> " + username);
         AddContactDto addContactDto = new AddContactDto(username, contactUsername);
         presenter.addUserToContacts(addContactDto);
     }
