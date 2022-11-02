@@ -1,4 +1,4 @@
-package com.earl.javachat.ui.chat.contacts.addNewContact;
+package com.earl.javachat.ui.chat.rooms.newMessage;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +14,8 @@ import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.core.UsersListFetchingResultListener;
-import com.earl.javachat.data.restModels.AddContactDto;
-import com.earl.javachat.data.restModels.CurrentUser;
 import com.earl.javachat.data.restModels.UserInfo;
-import com.earl.javachat.databinding.FragmentAddNewContactBinding;
+import com.earl.javachat.databinding.FragmentChooseContactBinding;
 import com.earl.javachat.ui.NavigationContract;
 
 import java.util.Collections;
@@ -26,40 +23,45 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class AddNewContactFragment extends Fragment implements OperationResultListener, OnUserClickListener {
+public class ChooseContractFragment extends Fragment implements OperationResultListener {
 
-    FragmentAddNewContactBinding binding;
-    @Inject
-    AddNewContactPresenter presenter;
+    private FragmentChooseContactBinding binding;
     NavigationContract navigator;
     SharedPreferenceManager preferenceManager;
+    @Inject
+    ChooseContactPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectAddNewContactFragment(this);
-        navigator = (NavigationContract) requireActivity();
-        preferenceManager = new SharedPreferenceManager(requireContext());
+        ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectChooseContactFragment(this);
+        navigator = ((NavigationContract) requireActivity());
         super.onCreate(savedInstanceState);
+        preferenceManager = new SharedPreferenceManager(requireContext());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentAddNewContactBinding.inflate(inflater, container, false);
+        binding = FragmentChooseContactBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        fetchUsersList();
-        binding.backStrlka.setOnClickListener(v -> navigator.back());
-        binding.clearSearchEd.setOnClickListener(v -> binding.searchEd.setText(""));
+        fetchContactsList();
     }
 
-    private void fetchUsersList() {
+    private void fetchContactsList() {
         navigator.showProgressBar();
-        presenter.fetchUsersList(this);
+        String token = preferenceManager.getString(Keys.KEY_TOKEN);
+        presenter.fetchContacts(token, this);
+    }
+
+    private void recycler(List<UserInfo> list) {
+        ChooseContactRecyclerAdapter adapter = new ChooseContactRecyclerAdapter(list);
+        binding.usersRecycler.setAdapter(adapter);
+        navigator.hideProgressBar();
     }
 
     @Override
@@ -82,19 +84,6 @@ public class AddNewContactFragment extends Fragment implements OperationResultLi
     public void fail(Exception exception) {
         navigator.hideProgressBar();
         Toast.makeText(requireContext(), "Unable to fetch contacts for user " + exception, Toast.LENGTH_SHORT).show();
-    }
-
-    private void recycler(List<UserInfo> list) {
-        UsersListAdapter adapter = new UsersListAdapter(list, this);
-        binding.usersRecycler.setAdapter(adapter);
-        navigator.hideProgressBar();
-    }
-
-    @Override
-    public void addUserToContacts(String contactUsername) {
-        String username = preferenceManager.getString(Keys.KEY_NAME);
-        AddContactDto addContactDto = new AddContactDto(username, contactUsername);
-        presenter.addUserToContacts(addContactDto);
     }
 
     @Override

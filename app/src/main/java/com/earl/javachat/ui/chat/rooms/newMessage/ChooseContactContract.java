@@ -1,13 +1,13 @@
-package com.earl.javachat.ui.chat.contacts;
+package com.earl.javachat.ui.chat.rooms.newMessage;
 
 import com.earl.javachat.core.BasePresenter;
 import com.earl.javachat.core.BaseView;
 import com.earl.javachat.core.OperationResultListener;
 
-public interface ContactsContract {
+interface ChooseContactContract {
 
     interface Presenter extends BasePresenter {
-        void fetchContactsList(String token, OperationResultListener callback);
+        void fetchContacts(String token, OperationResultListener callback);
     }
 
     interface View extends BaseView<Presenter> {

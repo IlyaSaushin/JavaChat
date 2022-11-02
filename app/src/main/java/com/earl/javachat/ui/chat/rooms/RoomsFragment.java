@@ -1,6 +1,7 @@
 package com.earl.javachat.ui.chat.rooms;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,7 @@ import com.earl.javachat.JavaChatApp;
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.SharedPreferenceManager;
-import com.earl.javachat.core.UsersListFetchingResultListener;
-import com.earl.javachat.data.restModels.CurrentUser;
 import com.earl.javachat.data.restModels.RoomResponseDto;
-import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.databinding.FragmentRoomsBinding;
 import com.earl.javachat.ui.NavigationContract;
 
@@ -33,7 +31,7 @@ public class RoomsFragment extends Fragment implements OperationResultListener {
     @Inject
     RoomsPresenter presenter;
     NavigationContract navigator;
-    
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         ((JavaChatApp) requireContext().getApplicationContext()).appComponent.injectChatFragment(this);
@@ -53,6 +51,7 @@ public class RoomsFragment extends Fragment implements OperationResultListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchRoomsForUser();
+
     }
 
     private void fetchRoomsForUser() {
@@ -69,8 +68,12 @@ public class RoomsFragment extends Fragment implements OperationResultListener {
         } catch (Exception e) {
             Toast.makeText(requireContext(), "Unable to cast server response to list", Toast.LENGTH_SHORT).show();
         }
-
-        recycler(roomsList);
+        if (roomsList == null) {
+            Toast.makeText(requireContext(), "No chats still...", Toast.LENGTH_SHORT).show();
+            navigator.hideProgressBar();
+        } else {
+            recycler(roomsList);
+        }
     }
 
     private void recycler(List<RoomResponseDto> roomsList) {
@@ -82,7 +85,7 @@ public class RoomsFragment extends Fragment implements OperationResultListener {
     @Override
     public void fail(Exception exception) {
         navigator.hideProgressBar();
-        Toast.makeText(requireContext(), "Unable to fetch rooms for user", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), "Unable to fetch rooms for user " + exception, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -22,11 +22,11 @@
         android:id="@+id/user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
+        android:fontFamily="@font/roboto_medium"
         android:text="@string/example_user_name"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/user_last_message"
+        app:layout_constraintBottom_toTopOf="@id/user_online"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/user_avatar"
         app:layout_constraintTop_toTopOf="@id/user_avatar"
@@ -35,7 +35,7 @@
         />
 
     <TextView
-        android:id="@+id/user_last_message"
+        android:id="@+id/user_online"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/user_name"
         app:layout_constraintBottom_toTopOf="@id/stripe"
         />
-    
+
     <ImageView
         android:id="@+id/start_msg"
         android:layout_width="32dp"
@@ -77,10 +77,9 @@
         android:background="@color/OnPrimary"
         app:layout_constraintStart_toStartOf="@id/user_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_last_message"
+        app:layout_constraintTop_toBottomOf="@id/user_online"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="4dp"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

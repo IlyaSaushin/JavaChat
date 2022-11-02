@@ -4,12 +4,13 @@ import com.earl.javachat.core.BasePresenter;
 import com.earl.javachat.core.BaseView;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.UsersListFetchingResultListener;
+import com.earl.javachat.data.restModels.AddContactDto;
 
 public interface AddNewContactContract {
 
     interface Presenter extends BasePresenter {
-        void fetchUsersList(UsersListFetchingResultListener callback);
-        void addUserToContacts(String userId, OperationResultListener callback);
+        void fetchUsersList(OperationResultListener callback);
+        void addUserToContacts(AddContactDto addContactDto);
     }
 
     interface View extends BaseView<Presenter> {

@@ -36,4 +36,5 @@
     <string name="online">online</string>
     <string name="search_ed">Search...</string>
     <string name="global_search">Global search</string>
+    <string name="my_contacts">My contacts</string>
 </resources>

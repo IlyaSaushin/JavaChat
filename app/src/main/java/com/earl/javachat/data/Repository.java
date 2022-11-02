@@ -1,6 +1,7 @@
 package com.earl.javachat.data;
 
 import com.earl.javachat.core.OperationResultListener;
+import com.earl.javachat.data.restModels.AddContactDto;
 import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.data.restModels.RegisterDto;
 import com.earl.javachat.data.restModels.RoomResponseDto;
@@ -25,6 +26,12 @@ public interface Repository {
     void fetchUserInfo(String token, OperationResultListener callback);
 
     void fetchRoomsForUser(String token, OperationResultListener callback);
+
+    void fetchContacts(String token, OperationResultListener callback);
+
+    void fetchAllUsers(OperationResultListener callback);
+
+    void addUserToContacts(AddContactDto addContactDto);
 
     class BaseRepository implements Repository {
 
@@ -107,6 +114,56 @@ public interface Repository {
                 @Override
                 public void onFailure(Call<List<RoomResponseDto>> call, Throwable t) {
                     callback.fail(new Exception(t));
+                }
+            });
+        }
+
+        @Override
+        public void fetchContacts(String token, OperationResultListener callback) {
+            TokenDto tokenDto = new TokenDto(token);
+            Call<List<UserInfo>> listCall = service.fetchContacts(tokenDto);
+            listCall.enqueue(new Callback<List<UserInfo>>() {
+                @Override
+                public void onResponse(Call<List<UserInfo>> call, Response<List<UserInfo>> response) {
+                    callback.success(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<List<UserInfo>> call, Throwable t) {
+                    callback.fail(new Exception(t));
+                }
+            });
+        }
+
+        @Override
+        public void fetchAllUsers(OperationResultListener callback) {
+            Call<List<UserInfo>> listCall = service.fetchUsersList();
+            listCall.enqueue(new Callback<List<UserInfo>>() {
+                @Override
+                public void onResponse(Call<List<UserInfo>> call, Response<List<UserInfo>> response) {
+                    callback.success(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<List<UserInfo>> call, Throwable t) {
+                    callback.fail(new Exception(t));
+                }
+            });
+
+        }
+
+        @Override
+        public void addUserToContacts(AddContactDto addContactDto) {
+            Call<String> addContactCall = service.addContacts(addContactDto);
+            addContactCall.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
                 }
             });
         }

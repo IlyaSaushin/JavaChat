@@ -1,6 +1,7 @@
 package com.earl.javachat.ui.chat.contacts.addNewContact;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.earl.javachat.R;
 import com.earl.javachat.data.restModels.CurrentUser;
+import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.databinding.GlobalUsersRecyclerItemBinding;
 
 import java.util.List;
@@ -19,10 +21,10 @@ interface OnUserClickListener {
 
 public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.UserViewHolder> {
 
-    private final List<CurrentUser.UserDetails> usersList;
+    private final List<UserInfo> usersList;
     OnUserClickListener clickListener;
 
-    public UsersListAdapter (List<CurrentUser.UserDetails> list, OnUserClickListener clickListener) {
+    public UsersListAdapter (List<UserInfo> list, OnUserClickListener clickListener) {
         this.usersList = list;
         this.clickListener = clickListener;
     }
@@ -37,10 +39,9 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        CurrentUser.UserDetails user = usersList.get(position);
+        UserInfo user = usersList.get(position);
         holder.bind(user);
-        holder.addUserToContacts(user.userId);
-//        holder.itemView.setOnClickListener(view -> clickListener.addUserToContacts(user));
+        holder.addUserToContacts(user.username);
     }
 
     @Override
@@ -59,13 +60,15 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
             this.clickListener = clickListener;
         }
 
-        void bind(CurrentUser.UserDetails user) {
-            binding.userName.setText(user.nickName);
+        void bind(UserInfo user) {
+            binding.userName.setText(user.username);
         }
 
         @Override
-        public void addUserToContacts(String userId) {
-            binding.addUserBtn.setOnClickListener(v -> clickListener.addUserToContacts(userId));
+        public void addUserToContacts(String username) {
+            binding.addUserBtn.setOnClickListener(v -> clickListener.addUserToContacts(username));
+            binding.addUserBtn.setVisibility(View.INVISIBLE);
+            binding.addUserAdded.setVisibility(View.VISIBLE);
         }
     }
 }

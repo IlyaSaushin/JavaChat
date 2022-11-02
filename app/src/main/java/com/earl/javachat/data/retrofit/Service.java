@@ -1,5 +1,6 @@
 package com.earl.javachat.data.retrofit;
 
+import com.earl.javachat.data.restModels.AddContactDto;
 import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.data.restModels.MessageResponseDto;
 import com.earl.javachat.data.restModels.NewRoomRequestDto;
@@ -39,7 +40,7 @@ public interface Service {
 
     @Headers("Content-Type: application/json")
     @GET("/users")
-    Call<List<Users>> fetchUsersList();
+    Call<List<UserInfo>> fetchUsersList();
 
     @Headers("Content-Type: application/json")
     @POST("/messages")
@@ -57,5 +58,17 @@ public interface Service {
     @POST("/fetchUserInfo")
     Call<UserInfo> fetchUserInfo(
             @Body TokenDto token
+    );
+
+    @Headers("Content-Type: application/json")
+    @POST("/contacts")
+    Call<List<UserInfo>> fetchContacts(
+            @Body TokenDto token
+    );
+
+    @Headers("Content-Type: application/json")
+    @POST("/addContact")
+    Call<String> addContacts(
+            @Body AddContactDto addContactDto
     );
 }

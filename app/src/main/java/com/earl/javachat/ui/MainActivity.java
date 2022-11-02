@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
     private void showFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .commit();
     }
 }

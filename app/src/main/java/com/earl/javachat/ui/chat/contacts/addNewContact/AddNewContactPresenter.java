@@ -3,6 +3,7 @@ package com.earl.javachat.ui.chat.contacts.addNewContact;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.UsersListFetchingResultListener;
 import com.earl.javachat.data.Repository;
+import com.earl.javachat.data.restModels.AddContactDto;
 
 import javax.inject.Inject;
 
@@ -12,7 +13,7 @@ public class AddNewContactPresenter  implements AddNewContactContract.Presenter 
     Repository.BaseRepository repository;
 
     @Override
-    public void addUserToContacts(String userId, OperationResultListener callback) {
+    public void addUserToContacts(AddContactDto addContactDto) {
 //        repository.addUserToContacts(userId, callback);
     }
 
@@ -21,8 +22,8 @@ public class AddNewContactPresenter  implements AddNewContactContract.Presenter 
     }
 
     @Override
-    public void fetchUsersList(UsersListFetchingResultListener callback) {
-//        repository.fetchUsersList(callback);
+    public void fetchUsersList(OperationResultListener callback) {
+        repository.fetchAllUsers(callback);
     }
 
     @Override
