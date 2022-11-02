@@ -5,6 +5,7 @@ import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.data.restModels.MessageResponseDto;
 import com.earl.javachat.data.restModels.NewRoomRequestDto;
 import com.earl.javachat.data.restModels.RegisterDto;
+import com.earl.javachat.data.restModels.RemoveUserFromContactsDto;
 import com.earl.javachat.data.restModels.RoomResponseDto;
 import com.earl.javachat.data.restModels.TokenDto;
 import com.earl.javachat.data.restModels.UserInfo;
@@ -70,5 +71,11 @@ public interface Service {
     @POST("/addContact")
     Call<String> addContacts(
             @Body AddContactDto addContactDto
+    );
+
+    @Headers("Content-Type: application/json")
+    @POST("/removeContact")
+    Call<String> removeContact(
+            @Body RemoveUserFromContactsDto removeUserFromContactsDto
     );
 }

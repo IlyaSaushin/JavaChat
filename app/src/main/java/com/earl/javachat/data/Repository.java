@@ -1,9 +1,12 @@
 package com.earl.javachat.data;
 
+import android.util.Log;
+
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.restModels.AddContactDto;
 import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.data.restModels.RegisterDto;
+import com.earl.javachat.data.restModels.RemoveUserFromContactsDto;
 import com.earl.javachat.data.restModels.RoomResponseDto;
 import com.earl.javachat.data.restModels.TokenDto;
 import com.earl.javachat.data.restModels.UserInfo;
@@ -33,6 +36,10 @@ public interface Repository {
 
     void addUserToContacts(AddContactDto addContactDto);
 
+    void removeUserFromContacts(RemoveUserFromContactsDto removeUserFromContactsDto);
+
+    void logOut(String token, OperationResultListener callback);
+
     class BaseRepository implements Repository {
 
         @Inject
@@ -51,7 +58,7 @@ public interface Repository {
                 public void onResponse(Call<TokenDto> call, Response<TokenDto> response) {
                     if (response.isSuccessful()) {
                         assert response.body() != null;
-                        callback.success(response.body().token);
+                        callback.success(response.body().userToken);
                     }
                 }
                 @Override
@@ -72,7 +79,7 @@ public interface Repository {
                 public void onResponse(Call<TokenDto> call, Response<TokenDto> response) {
                     if (response.isSuccessful()) {
                         assert response.body() != null;
-                        callback.success(response.body().token);
+                        callback.success(response.body().userToken);
                     }
                 }
 
@@ -158,7 +165,7 @@ public interface Repository {
             addContactCall.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-
+                    Log.d("tag", "onResponse: " + response.body());
                 }
 
                 @Override
@@ -166,6 +173,27 @@ public interface Repository {
 
                 }
             });
+        }
+
+        @Override
+        public void removeUserFromContacts(RemoveUserFromContactsDto removeUserFromContactsDto) {
+            Call<String> removeUserFromContact = service.removeContact(removeUserFromContactsDto);
+            removeUserFromContact.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    Log.d("tag", "onResponse: " + response.body());
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            });
+        }
+
+        @Override
+        public void logOut(String token, OperationResultListener callback) {
+            // todo
         }
     }
 }

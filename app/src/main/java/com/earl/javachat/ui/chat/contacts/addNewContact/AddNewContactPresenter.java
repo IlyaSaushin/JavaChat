@@ -14,7 +14,7 @@ public class AddNewContactPresenter  implements AddNewContactContract.Presenter 
 
     @Override
     public void addUserToContacts(AddContactDto addContactDto) {
-//        repository.addUserToContacts(userId, callback);
+        repository.addUserToContacts(addContactDto);
     }
 
     public AddNewContactPresenter(Repository.BaseRepository repository) {

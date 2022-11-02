@@ -51,7 +51,6 @@ public class RoomsFragment extends Fragment implements OperationResultListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchRoomsForUser();
-
     }
 
     private void fetchRoomsForUser() {

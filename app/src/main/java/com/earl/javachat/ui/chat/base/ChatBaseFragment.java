@@ -100,6 +100,8 @@ public class ChatBaseFragment extends Fragment implements OperationResultListene
                 tab.setIcon(R.drawable.contacts_icon);
             } else if (position == 3) {
                 tab.setText("Profile");
+                tab.setIcon(R.mipmap.ic_test);
+/*
                 byte[] userImageBytes = Base64.decode(preferenceManager.getString(Keys.KEY_IMAGE), Base64.DEFAULT);
                 if (userImageBytes == null) {
                     tab.setIcon(R.mipmap.ic_test);
@@ -111,13 +113,13 @@ public class ChatBaseFragment extends Fragment implements OperationResultListene
                     View imageView = new ImageView(context);
 //                tab.setIcon(dr);
                     tab.setIcon(R.mipmap.ic_test);
-                }
+                }*/
             }
         }).attach();
     }
 
     private void fetchUserInfo() {
-        navigator.showProgressBar();
+//        navigator.showProgressBar();
         String token = preferenceManager.getString(Keys.KEY_TOKEN);
         if (token == null) {
             Toast.makeText(requireContext(), "No personal token, please reload app", Toast.LENGTH_SHORT).show();
@@ -133,12 +135,12 @@ public class ChatBaseFragment extends Fragment implements OperationResultListene
         preferenceManager.putString(Keys.KEY_EMAIL, userInfo.email);
         preferenceManager.putString(Keys.KEY_NAME, userInfo.username);
         preferenceManager.putString(Keys.KEY_USER_BIO, userInfo.bio);
-        navigator.hideProgressBar();
+//        navigator.hideProgressBar();
     }
 
     @Override
     public void fail(Exception exception) {
-        navigator.hideProgressBar();
+//        navigator.hideProgressBar();
         Toast.makeText(requireContext(), "Unable to get user info, please check server connection", Toast.LENGTH_SHORT).show();
     }
 

@@ -15,6 +15,7 @@ import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.OnBackPressedListener;
 import com.earl.javachat.core.SharedPreferenceManager;
 import com.earl.javachat.databinding.ActivityMainBinding;
+import com.earl.javachat.ui.chat.base.ChatBaseFragment;
 import com.earl.javachat.ui.chat.contacts.addNewContact.AddNewContactFragment;
 import com.earl.javachat.ui.logIn.LogInFragment;
 import com.earl.javachat.ui.register.RegisterFragment;
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationContrac
     private void showFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
-//                .addToBackStack(null)
+                .addToBackStack(null)
                 .commit();
     }
 }
