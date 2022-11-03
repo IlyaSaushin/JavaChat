@@ -60,7 +60,8 @@ public class AddNewContactFragment extends Fragment implements OperationResultLi
 
     private void fetchUsersList() {
         navigator.showProgressBar();
-        presenter.fetchUsersList(this);
+        String username = preferenceManager.getString(Keys.KEY_NAME);
+        presenter.fetchUsersList(username,this);
     }
 
     @Override

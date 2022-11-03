@@ -22,8 +22,8 @@ public class AddNewContactPresenter  implements AddNewContactContract.Presenter 
     }
 
     @Override
-    public void fetchUsersList(OperationResultListener callback) {
-        repository.fetchAllUsers(callback);
+    public void fetchUsersList(String userUsername, OperationResultListener callback) {
+        repository.fetchAllUsers(userUsername, callback);
     }
 
     @Override

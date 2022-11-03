@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.restModels.AddContactDto;
+import com.earl.javachat.data.restModels.UserUsernameDto;
 import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.data.restModels.RegisterDto;
 import com.earl.javachat.data.restModels.RemoveUserFromContactsDto;
@@ -32,7 +33,7 @@ public interface Repository {
 
     void fetchContacts(String token, OperationResultListener callback);
 
-    void fetchAllUsers(OperationResultListener callback);
+    void fetchAllUsers(String userUsername, OperationResultListener callback);
 
     void addUserToContacts(AddContactDto addContactDto);
 
@@ -143,8 +144,9 @@ public interface Repository {
         }
 
         @Override
-        public void fetchAllUsers(OperationResultListener callback) {
-            Call<List<UserInfo>> listCall = service.fetchUsersList();
+        public void fetchAllUsers(String userUsername, OperationResultListener callback) {
+            UserUsernameDto fetchAllUsers = new UserUsernameDto(userUsername);
+            Call<List<UserInfo>> listCall = service.fetchUsersList(fetchAllUsers);
             listCall.enqueue(new Callback<List<UserInfo>>() {
                 @Override
                 public void onResponse(Call<List<UserInfo>> call, Response<List<UserInfo>> response) {
