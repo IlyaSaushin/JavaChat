@@ -9,7 +9,7 @@ import com.earl.javachat.data.restModels.AddContactDto;
 public interface AddNewContactContract {
 
     interface Presenter extends BasePresenter {
-        void fetchUsersList(OperationResultListener callback);
+        void fetchUsersList(String userUsername, OperationResultListener callback);
         void addUserToContacts(AddContactDto addContactDto);
     }
 
