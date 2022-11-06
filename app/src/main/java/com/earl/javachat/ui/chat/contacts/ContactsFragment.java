@@ -1,6 +1,7 @@
 package com.earl.javachat.ui.chat.contacts;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.earl.javachat.JavaChatApp;
-import com.earl.javachat.R;
+
 import com.earl.javachat.core.Keys;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.core.SharedPreferenceManager;
@@ -20,10 +21,18 @@ import com.earl.javachat.data.restModels.UserInfo;
 import com.earl.javachat.databinding.FragmentContactsBinding;
 import com.earl.javachat.ui.NavigationContract;
 
+import org.reactivestreams.Subscriber;
+
 import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class ContactsFragment extends Fragment implements OperationResultListener, OnUserClickListener {
 
@@ -58,7 +67,31 @@ public class ContactsFragment extends Fragment implements OperationResultListene
     private void fetchContactsList() {
         navigator.showProgressBar();
         String token = preferenceManager.getString(Keys.KEY_TOKEN);
-        presenter.fetchContactsList(token, this);
+        Observable<List<UserInfo>> observable = presenter.fetchContactsList(token, this);
+//        observable.toFlowable(BackpressureStrategy.DROP);
+        Observer<List<UserInfo>> observer = new Observer<List<UserInfo>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("tag", "onSubscribe: ");
+            }
+
+            @Override
+            public void onNext(List<UserInfo> userInfos) {
+                Log.d("tag", "onNext: ->" + userInfos);
+                recycler(userInfos);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribe(observer);
     }
 
     @Override
@@ -84,6 +117,7 @@ public class ContactsFragment extends Fragment implements OperationResultListene
     }
 
     private void recycler(List<UserInfo> list) {
+//        https://gist.github.com/nightscape/23cd6fc45223afcc0ee892ca68012791
         ContactsRecyclerAdapter adapter = new ContactsRecyclerAdapter(list, this);
         binding.recycler.setAdapter(adapter);
         navigator.hideProgressBar();

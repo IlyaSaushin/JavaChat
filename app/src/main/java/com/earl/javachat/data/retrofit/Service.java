@@ -1,7 +1,6 @@
 package com.earl.javachat.data.retrofit;
 
 import com.earl.javachat.data.restModels.AddContactDto;
-import com.earl.javachat.data.restModels.UserUsernameDto;
 import com.earl.javachat.data.restModels.LoginDto;
 import com.earl.javachat.data.restModels.MessageResponseDto;
 import com.earl.javachat.data.restModels.NewRoomRequestDto;
@@ -10,9 +9,11 @@ import com.earl.javachat.data.restModels.RemoveUserFromContactsDto;
 import com.earl.javachat.data.restModels.RoomResponseDto;
 import com.earl.javachat.data.restModels.TokenDto;
 import com.earl.javachat.data.restModels.UserInfo;
+import com.earl.javachat.data.restModels.UserUsernameDto;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
@@ -40,7 +41,7 @@ public interface Service {
 
     @Headers("Content-Type: application/json")
     @POST("/users")
-    Call<List<UserInfo>> fetchUsersList(
+    Observable<List<UserInfo>> fetchUsersList(
             @Body UserUsernameDto fetchAllUsers
     );
 
@@ -64,7 +65,7 @@ public interface Service {
 
     @Headers("Content-Type: application/json")
     @POST("/contacts")
-    Call<List<UserInfo>> fetchContacts(
+    Observable<List<UserInfo>> fetchContacts(
             @Body TokenDto token
     );
 

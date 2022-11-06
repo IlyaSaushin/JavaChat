@@ -27,6 +27,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 public class AddNewContactFragment extends Fragment implements OperationResultListener, OnUserClickListener {
 
     FragmentAddNewContactBinding binding;
@@ -61,7 +65,28 @@ public class AddNewContactFragment extends Fragment implements OperationResultLi
     private void fetchUsersList() {
         navigator.showProgressBar();
         String username = preferenceManager.getString(Keys.KEY_NAME);
-        presenter.fetchUsersList(username,this);
+        Observable<List<UserInfo>> observable =  presenter.fetchUsersList(username,this);
+        observable.subscribeWith(new Observer<List<UserInfo>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(List<UserInfo> userInfos) {
+                recycler(userInfos);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     @Override
