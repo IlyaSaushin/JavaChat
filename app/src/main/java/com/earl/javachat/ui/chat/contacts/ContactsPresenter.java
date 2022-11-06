@@ -3,8 +3,13 @@ package com.earl.javachat.ui.chat.contacts;
 import com.earl.javachat.core.OperationResultListener;
 import com.earl.javachat.data.Repository;
 import com.earl.javachat.data.restModels.RemoveUserFromContactsDto;
+import com.earl.javachat.data.restModels.UserInfo;
+
+import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
 
 public class ContactsPresenter implements ContactsContract.Presenter {
 
@@ -21,8 +26,8 @@ public class ContactsPresenter implements ContactsContract.Presenter {
      }
 
     @Override
-    public void fetchContactsList(String token, OperationResultListener callback) {
-        repository.fetchContacts(token, callback);
+    public Observable<List<UserInfo>> fetchContactsList(String token, OperationResultListener callback) {
+        return repository.fetchContacts(token, callback);
     }
 
     @Override
